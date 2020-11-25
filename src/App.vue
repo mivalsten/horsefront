@@ -1,16 +1,19 @@
 <template>
   <header-container></header-container>
+  <update-form></update-form>
 </template>
 
 <script>
-import HeaderContainer from './components/header/HeaderContainer'
+import HeaderContainer from "./components/header/HeaderContainer";
+import UpdateForm from "./components/user-profile/UpdateForm.vue";
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     HeaderContainer,
-  }
-}
+    UpdateForm,
+  },
+};
 </script>
 
 <style>
@@ -18,7 +21,6 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
 }
