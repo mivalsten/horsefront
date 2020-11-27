@@ -1,5 +1,5 @@
 build site:
-  image: node
+  image: node:12
   stage: build
   script:
     - npm install 
@@ -7,3 +7,26 @@ build site:
   artifacts:
     paths:
       - dist
+
+test:
+  image: node:12
+  stage: test
+  script:
+    - npm install
+    - npm run lint
+
+pages:
+  image: node:12
+  stage: deploy
+  script:
+    - npm install --progress=false
+    - npm run build
+    - rm -rf public
+    - mkdir public
+    - cp -r dist/* public
+  artifacts:
+    expire_in: 1 day
+    paths:
+      - public
+    only:
+      - master
