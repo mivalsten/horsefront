@@ -1,6 +1,10 @@
 <template>
-    <el-button v-if="!authenticated" type="primary">Zaloguj</el-button>
-    <el-button v-if="authenticated" type="primary">Mój profil</el-button>
+    <el-menu-item v-on:click="login" v-if="!authenticated" index="3">
+        Zaloguj
+    </el-menu-item>
+    <el-menu-item v-if="authenticated" v-on:click="showProfile" index="4">
+        Mój profil
+    </el-menu-item>
 </template>
 
 <script>
@@ -10,11 +14,20 @@ export default {
             authenticated: false,
         };
     },
+    methods: {
+        login() {
+            this.$router.push("login");
+            this.authenticated = true;
+        },
+        showProfile() {
+            this.$router.push("profile");
+        },
+    },
 };
 </script>
 
 <style>
-.el-button {
+.el-menu-item {
     display: flex;
     align-self: center;
 }
