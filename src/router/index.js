@@ -21,9 +21,14 @@ const routes = [
   }
 ];
 
+const base = process.env.NODE_ENV === 'production'
+    ? '/hiperkon/' + process.env.CI_PROJECT_NAME + '/'
+    : '/'
+
 const router = createRouter({
   history: createWebHistory(),
   routes,
+  base
 });
 
 export default router;
