@@ -1,12 +1,18 @@
 <template>
     <header-container></header-container>
+    <content-container> </content-container>
 </template>
 
 <script>
 import HeaderContainer from "./components/header/HeaderContainer.vue";
+import ContentContainer from "./components/ContentContainer";
+
 export default {
     name: "App",
-    components: { HeaderContainer },
+    components: {
+        HeaderContainer,
+        ContentContainer,
+    },
 };
 </script>
 

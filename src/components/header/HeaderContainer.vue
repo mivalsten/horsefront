@@ -7,9 +7,6 @@
             <el-col :span="14">
                 <header-nav></header-nav>
             </el-col>
-            <el-col id="login-col" :span="4">
-                <login-button></login-button>
-            </el-col>
         </el-row>
     </header>
 </template>
@@ -17,13 +14,11 @@
 <script>
 import HeaderLogo from "./HeaderLogo";
 import HeaderNav from "./HeaderNav";
-import LoginButton from "./LoginButton";
 
 export default {
     components: {
         HeaderLogo,
         HeaderNav,
-        LoginButton,
     },
 };
 </script>
