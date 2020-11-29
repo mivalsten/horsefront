@@ -1,13 +1,7 @@
 <template>
     <header class="app-toolbar">
-        <el-row :gutter="20" type="flex">
-            <el-col :span="5">
-                <header-logo></header-logo>
-            </el-col>
-            <el-col :span="14">
-                <header-nav></header-nav>
-            </el-col>
-        </el-row>
+        <header-logo></header-logo>
+        <header-nav></header-nav>
     </header>
 </template>
 
@@ -27,12 +21,10 @@ export default {
 .app-toolbar {
     background: #9c27b0;
     box-sizing: border-box;
-}
-#login-col {
+    width: inherit;
     display: flex;
-    align-content: center;
     align-items: center;
-    justify-content: center;
-    height: 64px;
+    margin-bottom: 2em;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
 }
 </style>
