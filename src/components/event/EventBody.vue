@@ -1,7 +1,5 @@
 <template>
     <ul class="card-body-list">
-        <li>System: {{ system }}</li>
-        <li>Autor: {{ author }}</li>
         <li>Liczba miejsc: {{ places }}/{{ max }}</li>
         <li>Data: {{ date }}</li>
         <li>Godzina: {{ time }}</li>
@@ -10,7 +8,7 @@
 
 <script>
 export default {
-    props: ["system", "author", "max", "date", "time", "places"],
+    props: ["max", "date", "time", "places"],
 
     data() {
         return {};

@@ -1,12 +1,26 @@
 <template>
     <footer class="card-footer">
-        <el-button type="info">Szczegóły</el-button>
-        <el-button type="primary">Zapisz się</el-button>
+        <el-button type="info" v-on:click="showDetails">Szczegóły</el-button>
+        <el-button type="primary" v-on:click="register">Zapisz się</el-button>
     </footer>
 </template>
 
 <script>
-export default {};
+import request from "../../utils/request";
+export default {
+    data() {},
+    methods: {
+        showDetails() {
+            this.$router.push("details");
+        },
+        register() {
+            request
+                .attendee()
+                .then(() => {})
+                .catch(() => {});
+        },
+    },
+};
 </script>
 
 <style>

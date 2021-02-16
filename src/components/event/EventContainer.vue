@@ -1,13 +1,11 @@
 <template>
     <el-card class="box-card">
-        <event-header v-bind:value="header"></event-header>
+        <event-header v-bind:value="name"></event-header>
         <event-body
-            :system="system"
-            :author="author"
-            :max="max"
+            :max="capacity"
             :date="date"
-            :time="time"
-            :places="places"
+            :time="start"
+            :places="attending"
         ></event-body>
         <event-footer></event-footer>
     </el-card>
@@ -22,7 +20,7 @@ export default {
     components: { EventBody, EventHeader, EventFooter },
     data() {
         return {
-            header: "Sesja XYZ",
+            name: "Sesja XYZ",
             system: "XD",
             author: "dino333",
             max: 4,

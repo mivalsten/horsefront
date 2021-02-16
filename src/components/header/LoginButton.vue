@@ -8,6 +8,8 @@
 </template>
 
 <script>
+import request from "../../utils/request";
+
 export default {
     data() {
         return {
@@ -17,11 +19,20 @@ export default {
     methods: {
         login() {
             this.$router.push("login");
-            this.authenticated = true;
         },
         showProfile() {
             this.$router.push("profile");
         },
+    },
+    mounted() {
+        request
+            .getUserProfile()
+            .then((json) => {
+                console.log("onThen: " + json);
+            })
+            .catch((err) => {
+                console.log(`onErr: ${err}`);
+            });
     },
 };
 </script>

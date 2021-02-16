@@ -13,11 +13,12 @@ export default {
         HeaderContainer,
         ContentContainer,
     },
+    mounted() {},
 };
 </script>
 
 <style>
 #app {
-    font-family: sans-serif;
+    font-family: "OpenSans", sans-serif;
 }
 </style>

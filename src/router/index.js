@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from "vue-router";
 import EventList from "@/components/event/EventList.vue";
 import LoginForm from "@/components/login/LoginForm.vue";
 import Profile from "@/components/user-profile/Profile.vue";
+import DetailView from "@/components/details/DetailView.vue";
 
 const routes = [
   {
@@ -18,12 +19,15 @@ const routes = [
     path: "/profile",
     name: "Twój Profil",
     component: Profile,
-  }
+  },
+    {
+    path: "/details",
+    name: "Szczególy sesji",
+    component: DetailView,
+  },
 ];
 
-const base = process.env.NODE_ENV === 'production'
-    ? '/hiperkon/' + process.env.CI_PROJECT_NAME + '/'
-    : '/'
+const base = '/hiperkon/hiperkon-frontend/'
 
 const router = createRouter({
   history: createWebHistory(),
