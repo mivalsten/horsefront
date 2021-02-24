@@ -1,13 +1,13 @@
 <template>
     <el-card class="box-card">
-        <event-header v-bind:value="name"></event-header>
+        <event-header :value="eventData.name"></event-header>
         <event-body
-            :max="capacity"
-            :date="date"
-            :time="start"
-            :places="attending"
+            :max="eventData.capacity"
+            :date="eventData.date"
+            :time="eventData.start"
+            :places="eventData.attending"
         ></event-body>
-        <event-footer></event-footer>
+        <event-footer :url="eventData.url"></event-footer>
     </el-card>
 </template>
 
@@ -18,17 +18,11 @@ import EventHeader from "./EventHeader.vue";
 
 export default {
     components: { EventBody, EventHeader, EventFooter },
+    props: ["eventData"],
     data() {
-        return {
-            name: "Sesja XYZ",
-            system: "XD",
-            author: "dino333",
-            max: 4,
-            date: "2020-10-10",
-            time: "20:00",
-            places: "2",
-        };
+        return {};
     },
+    mounted() {},
 };
 </script>
 

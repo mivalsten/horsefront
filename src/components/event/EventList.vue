@@ -1,9 +1,18 @@
 <template>
-    <div class="event-list" v-if="events.lenght">
+    <div class="event-list" v-if="events.length" @sign-up="onAssign">
         <event-container
+            $sign-up="$forceUpdate"
             v-for="(event, name, index) in events"
             :key="index"
+            :eventData="event"
         ></event-container>
+        <el-alert
+            :title="message.body"
+            :type="message.type"
+            show-icon
+            close-text="Gotcha"
+        >
+        </el-alert>
     </div>
     <div class="event-list event-list-placeholder" v-else>
         Brak sesji do wyświetlenia 😭😭😭
@@ -19,15 +28,32 @@ export default {
     data() {
         return {
             events: [],
+            message: {
+                type: "info",
+                visible: true,
+                body: "To jest standard message",
+            },
         };
     },
     mounted() {
-        request
-            .getEvents()
-            .then((events) => {
-                this.events = parseDateAndTime(events);
-            })
-            .catch(() => {});
+        this.showEvents();
+    },
+    methods: {
+        onAssign(msg) {
+            this.showEvents();
+            this.message.body = msg;
+            this.message.visible = true;
+        },
+        showEvents() {
+            request
+                .getEvents()
+                .then((events) => {
+                    this.events = events.map((event) => {
+                        return parseDateAndTime(event);
+                    });
+                })
+                .catch(() => {});
+        },
     },
 };
 </script>

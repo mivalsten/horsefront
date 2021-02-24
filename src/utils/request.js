@@ -14,6 +14,9 @@ export default {
     getEvents() {
         return instance.get("/events");
     },
+    getEvent(path) {
+        return instance.get(path);
+    },
     getUserProfile() {
         return instance.get("/i_am");
     },
@@ -29,7 +32,10 @@ export default {
     deleteUserAccount() {
         return instance.delete("/i_am/removing/myself");
     },
-    attendee(id) {
-        return instance.get(`/i_am/${id}/attendance`);
+    attendee(path) {
+        return instance.get(path + "/attendence");
+    },
+    unattendee(path) {
+        return instance.delete(path + "/attendence");
     },
 };

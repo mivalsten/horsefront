@@ -18,18 +18,7 @@ export default {
         this.serializeData();
     },
     methods: {
-        serializeData() {
-            const out = {
-                name: "string",
-                url: "string",
-                event_type: "string",
-                start: "2021-02-15T15:40:44.583Z",
-                end: "2021-02-15T15:40:44.583Z",
-                age_restrictions: "string",
-                attending: 0,
-                wait_list: 0,
-                capacity: 0,
-            };
+        serializeData(out) {
             this.parseDateAndTime(out);
             Object.keys(event).forEach((el) => {
                 this.tableData.push({ header: event[el], value: out[el] });
@@ -51,10 +40,51 @@ export default {
             return data;
         },
         register() {
+            const path = new URL(this.url).pathname;
             request
-                .attendee()
-                .then(() => {})
-                .catch(() => {});
+                .attendee(path)
+                .then((res) => {
+                    switch (res.response.status) {
+                        case 200:
+                            this.$emit(
+                                "sign-up",
+                                "Jesteś na liście rezerwowej"
+                            );
+                            break;
+                        case 201:
+                            this.$emit(
+                                "sign-up",
+                                "Zapisałeś się na sesję. Miłej gry"
+                            );
+                    }
+                })
+                .catch((err) => {
+                    switch (err.response.status) {
+                        case 420:
+                            this.$emit(
+                                "sign-up",
+                                "Nie możesz zapisać się na sesję, którą organizujesz"
+                            );
+                            break;
+                        case 404:
+                            this.$emit(
+                                "sign-up",
+                                "Nie znaleziono sesji, na którą chcesz się zapisać"
+                            );
+                            break;
+                        case 500:
+                            this.$emit(
+                                "sign-up",
+                                "Nie możemy cię zapisać na tę sesję, nie wiemy dlaczego"
+                            );
+                            break;
+                        default:
+                            this.$emit(
+                                "sign-up",
+                                "Wystąpił nieznany błąd:" + err.response.status
+                            );
+                    }
+                });
         },
     },
     data() {

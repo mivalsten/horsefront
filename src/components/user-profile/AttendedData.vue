@@ -1,7 +1,18 @@
 .<template>
     <el-table :data="tableData" empty-text="Nie uczestniczysz w żadnej sesji">
-        <el-column prop="start" label="Data"></el-column>
-        <el-column prop="name" label="Tytuł"></el-column>
+        <el-table-column prop="date" label="Data"></el-table-column>
+        <el-table-column prop="start" label="Godzina"></el-table-column>
+        <el-table-column prop="name" label="Tytuł"></el-table-column>
+        <el-table-column label="Zrezygnuj">
+            <template #default="scope">
+                <el-button
+                    size="mini"
+                    type="danger"
+                    @click="handleDelete(scope.$index, tableData)"
+                    >Zrezygnuj</el-button
+                >
+            </template>
+        </el-table-column>
     </el-table>
 </template>
 
@@ -15,13 +26,27 @@ export default {
             tableData: [],
         };
     },
+    methods: {
+        handleDelete(index, rows) {
+            const row = rows[index];
+            request()
+                .unattendee(new URL(row.url).path)
+                .then(() => {
+                    rows.splice(index, 1);
+                })
+                .catch();
+        },
+    },
     mounted() {
-        request.getOrganizedEvents().then((data) => {
+        request.getAttendedEvents().then((data) => {
+            this.rawData = data;
             data.forEach((element) => {
                 element = parseDateAndTime(element);
                 this.tableData.push({
+                    date: element.date,
                     start: element.start,
                     name: element.name,
+                    url: element.url,
                 });
             });
         });

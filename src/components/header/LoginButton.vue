@@ -27,11 +27,12 @@ export default {
     mounted() {
         request
             .getUserProfile()
-            .then((json) => {
-                console.log("onThen: " + json);
+            .then(() => {
+                this.authenticated = true;
+                this.$emit("auth", "true");
             })
             .catch((err) => {
-                console.log(`onErr: ${err}`);
+                console.log(`onErr: ${err.response.status}`);
             });
     },
 };
