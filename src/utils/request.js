@@ -1,8 +1,12 @@
 import axios from "axios";
-export const API = "http://hyperhorse.westeurope.azurecontainer.io/";
+export const API = "http://api.konwent.online/";
 
 const instance = axios.create({
     baseURL: API,
+    headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Content-Type": "application/json",
+    },
 });
 instance.interceptors.response.use(
     () => {},
