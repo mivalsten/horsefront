@@ -11,7 +11,7 @@ export default {
     methods: {
         redirectToGoogle() {
             window.open(
-                "http://hyperhorse.westeurope.azurecontainer.io/login/google",
+                "https://api.konwent.online/login/google",
                 "DescriptiveWindowName",
                 "height=650,width=500"
             );
