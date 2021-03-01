@@ -7,6 +7,6 @@ export default {
         age_restrictions: "Ograniczenia Wiekowe",
         attending: "Uczestniczy",
         wait_list: "Lista rezerwowa",
-        capacity: "Liczba miejsc",
+        capacity: "Liczba uczestników",
     },
 };

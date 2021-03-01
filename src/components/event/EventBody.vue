@@ -1,6 +1,6 @@
 <template>
     <ul class="card-body-list">
-        <li>Liczba miejsc: {{ places }}/{{ max }}</li>
+        <li>Liczba uczestników: {{ places }}/{{ max }}</li>
         <li>Data: {{ date }}</li>
         <li>Godzina: {{ time }}</li>
     </ul>

@@ -7,7 +7,7 @@
             :time="eventData.start"
             :places="eventData.attending"
         ></event-body>
-        <event-footer :url="eventData.url"></event-footer>
+        <event-footer :id="eventData.id"></event-footer>
     </el-card>
 </template>
 

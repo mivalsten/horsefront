@@ -1,5 +1,5 @@
 import axios from "axios";
-export const API = "http://api.konwent.online/";
+export const API = "https://api.konwent.online/";
 
 const instance = axios.create({
     baseURL: API,
@@ -8,18 +8,13 @@ const instance = axios.create({
         "Content-Type": "application/json",
     },
 });
-instance.interceptors.response.use(
-    () => {},
-    (err) => {
-        return Promise.reject(err);
-    }
-);
+
 export default {
     getEvents() {
         return instance.get("/events");
     },
     getEvent(path) {
-        return instance.get(path);
+        return instance.get("/events/" + path);
     },
     getUserProfile() {
         return instance.get("/i_am");

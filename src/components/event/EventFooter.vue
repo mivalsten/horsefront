@@ -10,7 +10,7 @@
 <script>
 import request from "../../utils/request";
 export default {
-    props: ["url"],
+    props: ["id"],
     mounted() {},
     data() {
         return {
@@ -19,11 +19,7 @@ export default {
     },
     methods: {
         showDetails() {
-            const id = /\b[0-9a-f]{8}\b-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-\b[0-9a-f]{12}\b/.exec(
-                this.url
-            );
-
-            this.$router.push({ name: "details", params: { id: id[0] } });
+            this.$router.push({ name: "details", params: { id: this.id } });
         },
         auth(value) {
             this.authenticated = value;

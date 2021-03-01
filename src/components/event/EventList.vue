@@ -1,7 +1,6 @@
 <template>
     <div class="event-list" v-if="events.length" @sign-up="onAssign">
         <event-container
-            $sign-up="$forceUpdate"
             v-for="(event, name, index) in events"
             :key="index"
             :eventData="event"
@@ -35,7 +34,7 @@ export default {
             },
         };
     },
-    mounted() {
+    created() {
         this.showEvents();
     },
     methods: {
@@ -48,8 +47,11 @@ export default {
             request
                 .getEvents()
                 .then((events) => {
-                    this.events = events.map((event) => {
-                        return parseDateAndTime(event);
+                    events = events.data;
+                    this.events = Object.entries(events).map((event) => {
+                        event[1].id = event[0];
+
+                        return parseDateAndTime(event[1]);
                     });
                 })
                 .catch(() => {});
