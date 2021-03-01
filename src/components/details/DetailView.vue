@@ -20,9 +20,14 @@ export default {
     methods: {
         serializeData(out) {
             console.log(this.$route.params.id);
-            request.getEvent(this.$route.params.id).then((res) => {
-                console.log(res.data);
-            });
+            request
+                .getEvent(this.$route.params.id)
+                .then((res) => {
+                    console.log(res.data);
+                })
+                .catch((err) => {
+                    console.log("WYSTAPIL BLAD:" + err);
+                });
             this.parseDateAndTime(out);
             Object.keys(event).forEach((el) => {
                 this.tableData.push({ header: event[el], value: out[el] });

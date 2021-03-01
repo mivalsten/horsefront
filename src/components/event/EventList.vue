@@ -5,13 +5,6 @@
             :key="index"
             :eventData="event"
         ></event-container>
-        <el-alert
-            :title="message.body"
-            :type="message.type"
-            show-icon
-            close-text="Gotcha"
-        >
-        </el-alert>
     </div>
     <div class="event-list event-list-placeholder" v-else>
         Brak sesji do wyświetlenia 😭😭😭

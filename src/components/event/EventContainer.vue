@@ -6,6 +6,7 @@
             :date="eventData.date"
             :time="eventData.start"
             :places="eventData.attending"
+            :system="eventData.game"
         ></event-body>
         <event-footer :id="eventData.id"></event-footer>
     </el-card>

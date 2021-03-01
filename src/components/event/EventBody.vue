@@ -3,12 +3,13 @@
         <li>Liczba uczestników: {{ places }}/{{ max }}</li>
         <li>Data: {{ date }}</li>
         <li>Godzina: {{ time }}</li>
+        <li>System: {{ system }}</li>
     </ul>
 </template>
 
 <script>
 export default {
-    props: ["max", "date", "time", "places"],
+    props: ["max", "date", "time", "places", "system"],
 
     data() {
         return {};
