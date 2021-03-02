@@ -10,11 +10,7 @@
 export default {
     methods: {
         redirectToGoogle() {
-            window.open(
-                "https://api.konwent.online/login/google",
-                "DescriptiveWindowName",
-                "height=650,width=500"
-            );
+            window.location.replace("https://api.konwent.online/login/google");
         },
     },
 };
