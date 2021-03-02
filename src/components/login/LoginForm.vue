@@ -7,23 +7,25 @@
 </template>
 
 <script>
+import request from "../../utils/request";
 export default {
     methods: {
         redirectToGoogle() {
             this.$gAuth
                 .signIn()
-                .then((GoogleUser) => {
+                .then(() => {
                     // on success do something
-                    console.log("GoogleUser", GoogleUser);
-                    console.log("getId", GoogleUser.getId());
-                    console.log(
-                        "getBasicProfile",
-                        GoogleUser.getBasicProfile()
-                    );
-                    console.log(
-                        "getAuthResponse",
-                        GoogleUser.getAuthResponse()
-                    );
+                    return this.$gAuth.getAuthCode();
+                })
+                .then((code) => {
+                    const PATH = "token";
+                    return request.sentAuthCode(PATH, {
+                        code,
+                        redirect_uri: "/",
+                    });
+                })
+                .then((res) => {
+                    if (res) console.log("UDAŁO SIĘ");
                 })
                 .catch((error) => {
                     console.log("error", error);

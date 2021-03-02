@@ -37,4 +37,7 @@ export default {
     unattendee(path) {
         return instance.delete(path + "/attendence");
     },
+    sentAuthCode(path) {
+        return instance.post(path);
+    },
 };
