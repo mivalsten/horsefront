@@ -7,26 +7,12 @@
 </template>
 
 <script>
-import request from "../../utils/request";
 export default {
     methods: {
         redirectToGoogle() {
-            this.$gAuth
-                .getAuthCode()
-                .then((code) => {
-                    const PATH = "token";
-                    const req = JSON.stringify({
-                        code,
-                        redirect_uri: "/google",
-                    });
-                    return request.sentAuthCode(PATH, req);
-                })
-                .then((res) => {
-                    if (res) console.log(res);
-                })
-                .catch((error) => {
-                    console.log("error", error);
-                });
+            window.location.replace(
+                "https://sesje.konwent.online/login/google"
+            );
         },
     },
 };

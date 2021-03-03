@@ -37,6 +37,9 @@ export default {
     unattendee(path) {
         return instance.delete(path + "/attendence");
     },
+    login() {
+        return instance.get("/login/google");
+    },
     sentAuthCode(path, data) {
         return fetch(API + path, {
             method: "POST",
