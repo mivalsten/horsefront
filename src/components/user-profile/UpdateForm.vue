@@ -8,6 +8,7 @@
                         v-model="nickname"
                         id="discord"
                         v-on:blur="onBlur"
+                        placeholder="np. RandomKoń#2021"
                     ></el-input>
                 </el-form-item>
 
@@ -15,7 +16,9 @@
                     >To nie jest prawidłowy nick do Discorda</small
                 >
             </div>
-            <el-button type="primary" @click="onSubmit">Edytuj</el-button>
+            <el-button type="primary" @click="onSubmit"
+                >Zapisz zmiany</el-button
+            >
         </el-form>
     </div>
 </template>

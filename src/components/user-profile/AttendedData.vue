@@ -38,8 +38,9 @@ export default {
         },
     },
     mounted() {
-        request.getAttendedEvents().then((data) => {
-            this.rawData = data;
+        request.getAttendedEvents().then((res) => {
+            console.log(res);
+            const data = res.data;
             data.forEach((element) => {
                 element = parseDateAndTime(element);
                 this.tableData.push({
