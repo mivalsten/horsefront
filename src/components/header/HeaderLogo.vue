@@ -1,5 +1,5 @@
 <template>
-    <img src="logo.png" alt="Konline" />
+    <img src="logo.png" alt="Konline" class="logo" />
     <h1>Hiperkoń</h1>
 </template>
 
@@ -17,5 +17,8 @@ h1 {
     margin-block: 0;
     display: inline;
     font-size: 1.5em;
+}
+.logo {
+    max-height: 80px;
 }
 </style>

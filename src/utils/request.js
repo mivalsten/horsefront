@@ -32,7 +32,7 @@ export default {
         return instance.delete("/i_am/removing/myself");
     },
     attendee(path) {
-        return instance.get(path + "/attendence");
+        return instance.post("/events/" + path + "/attendance");
     },
     unattendee(path) {
         return instance.delete(path + "/attendence");

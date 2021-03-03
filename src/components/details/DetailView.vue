@@ -65,9 +65,8 @@ export default {
             return data;
         },
         register() {
-            const path = new URL(this.url).pathname;
             request
-                .attendee(path)
+                .attendee(this.$route.params.id)
                 .then((res) => {
                     switch (res.response.status) {
                         case 200:
