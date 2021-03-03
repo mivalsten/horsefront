@@ -14,6 +14,7 @@ docker-build-master:
         - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
         - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE" .
         - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE"
+        - wget https://webhook.konwent.online/hooks/redeploy-front?token=$WEBHOOK_TOKEN_MASTER
     only:
         - master
 
