@@ -30,7 +30,7 @@ export default {
         handleDelete(index, rows) {
             const row = rows[index];
             request
-                .unattendee(new URL(row.url).path)
+                .unattendee(new URL(row.url).pathname)
                 .then(() => {
                     rows.splice(index, 1);
                 })
