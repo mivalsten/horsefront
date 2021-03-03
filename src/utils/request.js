@@ -1,5 +1,5 @@
 import axios from "axios";
-export const API = "https://api.konwent.online/";
+export const API = "https://sesje.konwent.online/";
 
 const instance = axios.create({
     baseURL: API,
