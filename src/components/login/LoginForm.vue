@@ -17,7 +17,7 @@ export default {
                     const PATH = "token";
                     const req = JSON.stringify({
                         code,
-                        redirect_uri: "/",
+                        redirect_uri: "/google",
                     });
                     return request.sentAuthCode(PATH, req);
                 })
