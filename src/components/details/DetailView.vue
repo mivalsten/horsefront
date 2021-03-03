@@ -83,31 +83,32 @@ export default {
                     }
                 })
                 .catch((err) => {
-                    switch (err.response.status) {
-                        case 420:
-                            this.$emit(
-                                "sign-up",
-                                "Nie możesz zapisać się na sesję, którą organizujesz"
-                            );
-                            break;
-                        case 404:
-                            this.$emit(
-                                "sign-up",
-                                "Nie znaleziono sesji, na którą chcesz się zapisać"
-                            );
-                            break;
-                        case 500:
-                            this.$emit(
-                                "sign-up",
-                                "Nie możemy cię zapisać na tę sesję, nie wiemy dlaczego"
-                            );
-                            break;
-                        default:
-                            this.$emit(
-                                "sign-up",
-                                "Wystąpił nieznany błąd:" + err.response.status
-                            );
-                    }
+                    console.log(err);
+                    // switch (err.response.status) {
+                    //     case 420:
+                    //         this.$emit(
+                    //             "sign-up",
+                    //             "Nie możesz zapisać się na sesję, którą organizujesz"
+                    //         );
+                    //         break;
+                    //     case 404:
+                    //         this.$emit(
+                    //             "sign-up",
+                    //             "Nie znaleziono sesji, na którą chcesz się zapisać"
+                    //         );
+                    //         break;
+                    //     case 500:
+                    //         this.$emit(
+                    //             "sign-up",
+                    //             "Nie możemy cię zapisać na tę sesję, nie wiemy dlaczego"
+                    //         );
+                    //         break;
+                    //     default:
+                    //         this.$emit(
+                    //             "sign-up",
+                    //             "Wystąpił nieznany błąd:" + err.response.status
+                    //         );
+                    // }
                 });
         },
     },

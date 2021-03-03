@@ -41,7 +41,10 @@ export default {
         },
 
         onSubmit() {
-            this.valid || request.updateUserProfile({ discord: this.nickname });
+            this.valid ||
+                request.updateUserProfile(
+                    JSON.stringify({ discord: this.nickname })
+                );
         },
     },
     components: {},

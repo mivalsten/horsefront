@@ -13,7 +13,7 @@ import request from "../../utils/request";
 export default {
     data() {
         return {
-            authenticated: false,
+            authenticated: true,
         };
     },
     methods: {
