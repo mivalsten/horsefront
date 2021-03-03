@@ -29,7 +29,7 @@ export default {
     methods: {
         handleDelete(index, rows) {
             const row = rows[index];
-            request()
+            request
                 .unattendee(new URL(row.url).path)
                 .then(() => {
                     rows.splice(index, 1);
