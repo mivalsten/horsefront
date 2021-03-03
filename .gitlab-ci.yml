@@ -1,31 +1,28 @@
-build site:
-  image: node:12
-  stage: build
-  script:
-    - npm install 
-    - npm run build
-  artifacts:
-    paths:
-      - dist
+default:
+    image: docker:latest
+    services:
+        - docker:dind
 
-test:
-  image: node:12
-  stage: test
-  script:
-    - npm install
-    - npm run lint
+.docker:
+    before_script:
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
 
-pages:
-  image: node:12
-  stage: deploy
-  script:
-    - npm install --progress=false
-    - npm run build
-    - mv public public-vue # GitLab Pages hooks on the public folder
-    - mv dist public 
-  artifacts:
-    paths:
-      - public
-  only:
-    refs:
-      - master
+docker-build-master:
+    extends: .docker
+    script:
+        - docker logout
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+        - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE" .
+        - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE"
+    only:
+        - master
+
+docker-build:
+    script:
+        - docker logout
+        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+        - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+        - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+    only:
+        - master
+        - test
