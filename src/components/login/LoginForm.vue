@@ -15,16 +15,14 @@ export default {
                 .getAuthCode()
                 .then((code) => {
                     const PATH = "token";
-                    return request.sentAuthCode(
-                        PATH,
-                        JSON.stringify({
-                            code,
-                            redirect_uri: "/",
-                        })
-                    );
+                    const req = JSON.stringify({
+                        code,
+                        redirect_uri: "/",
+                    });
+                    return request.sentAuthCode(PATH, req);
                 })
                 .then((res) => {
-                    if (res) console.log("UDAŁO SIĘ");
+                    if (res) console.log(res);
                 })
                 .catch((error) => {
                     console.log("error", error);

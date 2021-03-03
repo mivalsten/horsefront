@@ -18,20 +18,22 @@ export default {
         this.serializeData();
     },
     methods: {
-        serializeData(out) {
-            console.log(this.$route.params.id);
+        serializeData() {
             request
                 .getEvent(this.$route.params.id)
                 .then((res) => {
-                    console.log(res.data);
+                    const data = res.data;
+                    this.parseDateAndTime(data);
+                    Object.keys(event).forEach((el) => {
+                        this.tableData.push({
+                            header: event[el],
+                            value: data[el],
+                        });
+                    });
                 })
                 .catch((err) => {
                     console.log("WYSTAPIL BLAD:" + err);
                 });
-            this.parseDateAndTime(out);
-            Object.keys(event).forEach((el) => {
-                this.tableData.push({ header: event[el], value: out[el] });
-            });
         },
         parseDateAndTime(data) {
             const dateOptions = {
