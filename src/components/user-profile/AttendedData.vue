@@ -31,15 +31,17 @@ export default {
             const row = rows[index];
             request
                 .unattendee(new URL(row.url).pathname)
-                .then(() => {
+                .then((res) => {
+                    console.log(res);
                     rows.splice(index, 1);
                 })
-                .catch();
+                .catch((err) => {
+                    console.log(err);
+                });
         },
     },
     mounted() {
         request.getAttendedEvents().then((res) => {
-            console.log(res);
             const data = res.data;
             data.forEach((element) => {
                 element = parseDateAndTime(element);
