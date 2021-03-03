@@ -1,8 +1,22 @@
 <template>
     <div>
-        <el-table style="width: 90%; margin: auto" :data="tableData">
-            <el-table-column width="180" prop="header"> </el-table-column>
-            <el-table-column width="480" prop="value"> </el-table-column>
+        <el-table
+            cell-class-name="text-cell"
+            style="width: 90%; margin: auto"
+            :data="tableData"
+        >
+            <el-table-column
+                width="200"
+                prop="header"
+                cell-class-name="text-cell"
+            >
+            </el-table-column>
+            <el-table-column
+                width="480"
+                prop="value"
+                cell-class-name="text-cell"
+            >
+            </el-table-column>
         </el-table>
         <el-button type="primary" v-on:click="register">Zapisz się</el-button>
     </div>
@@ -107,4 +121,7 @@ export default {
 </script>
 
 <style>
+div.cell {
+    word-break: keep-all !important;
+}
 </style>

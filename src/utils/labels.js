@@ -1,7 +1,7 @@
 export default {
     event: {
         name: "Tytuł sesji",
-        game: "System",
+        game: "System/Świat",
         date: "Data",
         start: "Start",
         end: "Koniec",
@@ -9,7 +9,7 @@ export default {
         age_restrictions: "Ograniczenia Wiekowe",
         attending: "Uczestniczy",
         wait_list: "Lista rezerwowa",
-        capacity: "Maxymalna liczba uczestników",
+        capacity: "Maksymalna liczba uczestników",
         description: "Opis sesji",
     },
 };
