@@ -8,7 +8,7 @@
                 <el-button
                     size="mini"
                     type="danger"
-                    @click.prevent="handleDelete(scope.$index, tableData)"
+                    @click.prevent="handleDelete(scope, tableData)"
                     >Zrezygnuj</el-button
                 >
             </template>
