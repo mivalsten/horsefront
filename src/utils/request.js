@@ -35,7 +35,7 @@ export default {
         return instance.post("/events/" + path + "/attendance");
     },
     unattendee(path) {
-        return instance.delete(path + "/attendence");
+        return instance.delete(path + "/attendance");
     },
     login() {
         return instance.get("/login/google");
