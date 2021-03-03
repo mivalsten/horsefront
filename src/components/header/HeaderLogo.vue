@@ -1,6 +1,6 @@
 <template>
-    <img src="#" alt="" />
-    <h1>HyperKoń</h1>
+    <img src="logo.png" alt="Konline" />
+    <h1>Hiperkoń</h1>
 </template>
 
 <script>
