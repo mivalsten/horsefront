@@ -1,4 +1,5 @@
 # hiperkon-frontend
+Obecnie biega na https://sesje.konwent.online
 
 ## Project setup
 ```
