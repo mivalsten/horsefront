@@ -42,11 +42,11 @@ export default {
         },
     },
     mounted() {
-        request.getUserProfile().then((res) => {
+        request.getAttendedEvents().then((res) => {
             const data = res.data;
-            const id = data.discord;
+            const id = this.nickname;
 
-            data.attending.forEach((element) => {
+            data.forEach((element) => {
                 const info = element.attending.includes(id)
                     ? "Jesteś na głównej liście"
                     : "Jesteś na liście rezerwowej";

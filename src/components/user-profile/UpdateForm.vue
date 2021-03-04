@@ -25,11 +25,10 @@
 import request from "../../utils/request";
 
 export default {
+    props: ["nickname", "profile"],
     data() {
         return {
-            nickname: "",
             valid: true,
-            profile: {},
         };
     },
     methods: {
@@ -40,7 +39,9 @@ export default {
         },
 
         onSubmit() {
-            this.profile.discord = this.nickname;
+            const profile = this.profile;
+            profile.discord = this.nickname;
+
             request
                 .updateUserProfile(JSON.stringify(this.profile))
                 .then((res) => {
@@ -52,17 +53,7 @@ export default {
         },
     },
     components: {},
-    mounted() {
-        request
-            .getUserProfile()
-            .then((res) => {
-                this.profile = res.data;
-                this.nickname = this.profile.discord;
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    },
+    mounted() {},
 };
 </script>
 
