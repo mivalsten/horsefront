@@ -45,7 +45,8 @@ export default {
                 .then((res) => {
                     const data = res.data;
                     this.parseDateAndTime(data);
-                    data.attending = data.attending.join(",");
+                    data.attending = data.attending.join(", ");
+                    data.wait_list = data.wait_list.jon(", ");
                     Object.keys(event).forEach((el) => {
                         this.tableData.push({
                             header: event[el],
