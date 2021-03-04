@@ -11,5 +11,6 @@ export default {
         wait_list: "Lista rezerwowa",
         capacity: "Maksymalna liczba uczestników",
         description: "Opis sesji",
+        organizer: "Mistrz Gry",
     },
 };

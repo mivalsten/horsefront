@@ -57,6 +57,7 @@ export default {
             .getUserProfile()
             .then((res) => {
                 this.profile = res.data;
+                this.nickname = this.profile.discord;
             })
             .catch((err) => {
                 console.log(err);

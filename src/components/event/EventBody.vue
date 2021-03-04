@@ -4,12 +4,13 @@
         <li>Data: {{ date }}</li>
         <li>Godzina: {{ time }}</li>
         <li>System: {{ system }}</li>
+        <li>Mistrz Gry: {{ organizer }}</li>
     </ul>
 </template>
 
 <script>
 export default {
-    props: ["max", "date", "time", "places", "system"],
+    props: ["max", "date", "time", "places", "system", "organizer"],
 
     data() {
         return {};

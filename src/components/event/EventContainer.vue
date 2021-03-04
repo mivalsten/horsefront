@@ -7,6 +7,7 @@
             :time="eventData.start"
             :places="eventData.attending"
             :system="eventData.game"
+            :organizer="eventData.organizer"
         ></event-body>
         <event-footer :id="eventData.id"></event-footer>
     </el-card>
