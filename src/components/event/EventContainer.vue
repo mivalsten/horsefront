@@ -5,7 +5,7 @@
             :max="eventData.capacity"
             :date="eventData.date"
             :time="eventData.start"
-            :places="eventData.attending"
+            :places="eventData.attending_count"
             :system="eventData.game"
             :organizer="eventData.organizer"
         ></event-body>
