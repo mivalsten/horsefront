@@ -45,7 +45,8 @@ export default {
                 .then((res) => {
                     const data = res.data;
                     this.parseDateAndTime(data);
-                    Object.keys(event).forEach((el) => {
+                    data.attending = data.attending.join(",");
+                    Object.keys(data).forEach((el) => {
                         this.tableData.push({
                             header: event[el],
                             value: data[el],
