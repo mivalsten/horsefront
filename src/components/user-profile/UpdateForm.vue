@@ -16,11 +16,9 @@
                     >To nie jest prawidłowy nick do Discorda</small
                 >
             </div>
-            <el-button type="primary" v-on:click="onSubmit"
-                >Zapisz zmiany</el-button
-            >
         </el-form>
     </div>
+    <el-button type="primary" v-on:click="onSubmit"> Zapisz zmiany </el-button>
 </template>
 
 <script>
@@ -41,10 +39,14 @@ export default {
         },
 
         onSubmit() {
-            this.valid ||
-                request.updateUserProfile(
-                    JSON.stringify({ discord: this.nickname })
-                );
+            request
+                .updateUserProfile(JSON.stringify({ discord: this.nickname }))
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
         },
     },
     components: {},
