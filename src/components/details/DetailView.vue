@@ -1,4 +1,11 @@
 <template>
+    <el-alert
+        :title="alert.title"
+        :type="alert.type"
+        effect="dark"
+        v-if="alert.show"
+    >
+    </el-alert>
     <div>
         <el-table
             cell-class-name="text-cell"
@@ -68,46 +75,51 @@ export default {
             request
                 .attendee(this.$route.params.id)
                 .then((res) => {
+                    console.log(res);
                     switch (res.status) {
                         case 200:
-                            this.$emit(
-                                "sign-up",
-                                "Jesteś na liście rezerwowej"
-                            );
+                            this.alert.type = "success";
+                            this.alert.title = "Jesteś na liście rezerwowej";
+                            this.alert.show = true;
                             break;
                         case 201:
-                            this.$emit(
-                                "sign-up",
-                                "Zapisałeś się na sesję. Miłej gry"
-                            );
+                            this.alert.type = "success";
+                            this.alert.title =
+                                "Zapisałeś się na sesję. Miłej gry";
+                            this.alert.show = true;
                     }
                 })
                 .catch((err) => {
                     console.log(err);
                     switch (err.status) {
+                        case 401:
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Musisz być zalogowany, żeby sie zapisać";
+                            this.alert.show = true;
+                            break;
                         case 420:
-                            this.$emit(
-                                "sign-up",
-                                "Nie możesz zapisać się na sesję, którą organizujesz"
-                            );
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Nie możesz zapisać się na sesję, którą organizujesz";
+                            this.alert.show = true;
                             break;
                         case 404:
-                            this.$emit(
-                                "sign-up",
-                                "Nie znaleziono sesji, na którą chcesz się zapisać"
-                            );
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Nie znaleziono sesji, na którą chcesz się zapisać";
+                            this.alert.show = true;
                             break;
                         case 500:
-                            this.$emit(
-                                "sign-up",
-                                "Nie możemy cię zapisać na tę sesję, nie wiemy dlaczego"
-                            );
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Nie możemy cię zapisać na tę sesję. Błąd systemu";
+                            this.alert.show = true;
                             break;
                         default:
-                            this.$emit(
-                                "sign-up",
-                                "Wystąpił nieznany błąd:" + err.response.status
-                            );
+                            this.alert.show = true;
+                            this.alert.type = "error";
+                            this.alert.title = "Wystąpił nieznany błąd:" + err;
                     }
                 });
         },
@@ -115,6 +127,11 @@ export default {
     data() {
         return {
             tableData: [],
+            alert: {
+                type: "info",
+                title: "",
+                show: false,
+            },
         };
     },
 };
