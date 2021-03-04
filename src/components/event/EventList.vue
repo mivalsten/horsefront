@@ -41,11 +41,15 @@ export default {
                 .getEvents()
                 .then((events) => {
                     events = events.data;
-                    this.events = Object.entries(events).map((event) => {
-                        event[1].id = event[0];
+                    this.events = Object.entries(events)
+                        .sort((a, b) => {
+                            return new Date(a[1].start) - new Date(b[1].start);
+                        })
+                        .map((event) => {
+                            event[1].id = event[0];
 
-                        return parseDateAndTime(event[1]);
-                    });
+                            return parseDateAndTime(event[1]);
+                        });
                 })
                 .catch(() => {});
         },
