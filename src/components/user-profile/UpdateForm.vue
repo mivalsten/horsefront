@@ -16,7 +16,7 @@
                     >To nie jest prawidłowy nick do Discorda</small
                 >
             </div>
-            <el-button type="primary" @click="onSubmit"
+            <el-button type="primary" v-on:click="onSubmit"
                 >Zapisz zmiany</el-button
             >
         </el-form>
