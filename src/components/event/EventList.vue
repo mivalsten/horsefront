@@ -41,7 +41,6 @@ export default {
                 .getEvents()
                 .then((events) => {
                     events = events.data;
-                    console.log(events);
                     this.events = Object.entries(events).map((event) => {
                         event[1].id = event[0];
 
