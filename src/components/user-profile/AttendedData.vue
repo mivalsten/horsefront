@@ -3,6 +3,7 @@
         <el-table-column prop="date" label="Data"></el-table-column>
         <el-table-column prop="start" label="Godzina"></el-table-column>
         <el-table-column prop="name" label="Tytuł"></el-table-column>
+        <el-table-column prop="info" label="Lista"></el-table-column>
         <el-table-column label="Zrezygnuj">
             <template #default="scope">
                 <el-button
@@ -41,15 +42,22 @@ export default {
         },
     },
     mounted() {
-        request.getAttendedEvents().then((res) => {
+        request.getUserProfile().then((res) => {
             const data = res.data;
-            data.forEach((element) => {
+            const id = data.discord;
+
+            data.attending.forEach((element) => {
+                const info = element.attending.includes(id)
+                    ? "Jesteś na głównej liście"
+                    : "Jesteś na liście rezerwowej";
+
                 element = parseDateAndTime(element);
                 this.tableData.push({
                     date: element.date,
                     start: element.start,
                     name: element.name,
                     url: element.url,
+                    info,
                 });
             });
         });
