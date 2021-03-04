@@ -13,15 +13,15 @@ import request from "../../utils/request";
 export default {
     data() {
         return {
-            authenticated: true,
+            authenticated: false,
         };
     },
     methods: {
         login() {
-            this.$router.push("login");
+            this.$router.push({ path: "/login" });
         },
         showProfile() {
-            this.$router.push("profile");
+            this.$router.push({ path: "/profile" });
         },
     },
     mounted() {

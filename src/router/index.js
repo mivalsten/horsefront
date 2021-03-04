@@ -1,4 +1,4 @@
-import { createWebHistory, createRouter } from "vue-router";
+import { createWebHashHistory, createRouter } from "vue-router";
 import EventList from "@/components/event/EventList.vue";
 import LoginForm from "@/components/login/LoginForm.vue";
 import Profile from "@/components/user-profile/Profile.vue";
@@ -28,7 +28,7 @@ const routes = [
 ];
 
 const router = createRouter({
-    history: createWebHistory(),
+    history: createWebHashHistory(),
     routes,
 });
 
