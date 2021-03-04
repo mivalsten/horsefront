@@ -5,7 +5,7 @@
                 <el-form-item label="Nick do discorda">
                     <el-input
                         type="text"
-                        v-model="nickname"
+                        v-model="discord"
                         id="discord"
                         v-on:blur="onBlur"
                         placeholder="np. RandomKoń#2021"
@@ -29,6 +29,7 @@ export default {
     data() {
         return {
             valid: true,
+            discord: this.nickname,
         };
     },
     methods: {
