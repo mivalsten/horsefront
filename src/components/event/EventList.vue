@@ -1,12 +1,12 @@
 <template>
-    <div class="event-list" v-if="events.length" @sign-up="onAssign">
+    <div class="event-list" @sign-up="onAssign">
         <event-container
             v-for="(event, name, index) in events"
             :key="index"
             :eventData="event"
         ></event-container>
     </div>
-    <div class="event-list event-list-placeholder" v-else>
+    <div class="event-list event-list-placeholder" v-if="placeholder">
         Brak sesji do wyświetlenia 😭😭😭
     </div>
 </template>
@@ -25,6 +25,7 @@ export default {
                 visible: true,
                 body: "To jest standard message",
             },
+            placeholder: false,
         };
     },
     created() {
@@ -50,8 +51,11 @@ export default {
 
                             return parseDateAndTime(event[1]);
                         });
+                    this.placeholder = !this.events.length;
                 })
-                .catch(() => {});
+                .catch(() => {
+                    this.placeholder = this.events.length;
+                });
         },
     },
 };
