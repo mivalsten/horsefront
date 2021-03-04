@@ -8,10 +8,10 @@ export default {
         triggers: "Triggery",
         age_restrictions: "Ograniczenia Wiekowe",
         attending_count: "Uczestniczy",
-        wait_list: "Lista rezerwowa",
         capacity: "Maksymalna liczba uczestników",
         description: "Opis sesji",
         organizer: "Mistrz Gry",
         attending: "Gracze",
+        wait_list: "Lista rezerwowa",
     },
 };
