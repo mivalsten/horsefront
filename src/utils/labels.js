@@ -7,10 +7,11 @@ export default {
         end: "Koniec",
         triggers: "Triggery",
         age_restrictions: "Ograniczenia Wiekowe",
-        attending: "Uczestniczy",
+        attending_count: "Uczestniczy",
         wait_list: "Lista rezerwowa",
         capacity: "Maksymalna liczba uczestników",
         description: "Opis sesji",
         organizer: "Mistrz Gry",
+        attending: "Gracze",
     },
 };

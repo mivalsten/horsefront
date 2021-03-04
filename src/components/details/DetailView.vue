@@ -36,11 +36,6 @@ const event = labels.event;
 
 export default {
     mounted() {
-        request.getUserProfile().then((res) => {
-            if (res.status == 200) {
-                this.discord = res.data.discord;
-            }
-        });
         this.serializeData();
     },
     methods: {
@@ -77,65 +72,56 @@ export default {
             return data;
         },
         register() {
-            if (this.discord !== "") {
-                request
-                    .attendee(this.$route.params.id)
-                    .then((res) => {
-                        console.log(res);
-                        switch (res.status) {
-                            case 200:
-                                this.alert.type = "success";
-                                this.alert.title =
-                                    "Jesteś na liście rezerwowej";
-                                this.alert.show = true;
-                                break;
-                            case 201:
-                                this.alert.type = "success";
-                                this.alert.title =
-                                    "Zapisałeś się na sesję. Miłej gry";
-                                this.alert.show = true;
-                        }
-                    })
-                    .catch((err) => {
-                        console.log(err);
-                        switch (err.status) {
-                            case 401:
-                                this.alert.type = "error";
-                                this.alert.title =
-                                    "Musisz być zalogowany, żeby sie zapisać";
-                                this.alert.show = true;
-                                break;
-                            case 420:
-                                this.alert.type = "error";
-                                this.alert.title =
-                                    "Nie możesz zapisać się na sesję, którą organizujesz";
-                                this.alert.show = true;
-                                break;
-                            case 404:
-                                this.alert.type = "error";
-                                this.alert.title =
-                                    "Nie znaleziono sesji, na którą chcesz się zapisać";
-                                this.alert.show = true;
-                                break;
-                            case 500:
-                                this.alert.type = "error";
-                                this.alert.title =
-                                    "Nie możemy cię zapisać na tę sesję. Błąd systemu";
-                                this.alert.show = true;
-                                break;
-                            default:
-                                this.alert.show = true;
-                                this.alert.type = "error";
-                                this.alert.title =
-                                    "Wystąpił nieznany błąd:" + err;
-                        }
-                    });
-            } else {
-                this.alert.title =
-                    "Musisz najpierw podać swój discord name w profilu";
-                this.alert.type = "error";
-                this.alert.show = true;
-            }
+            request
+                .attendee(this.$route.params.id)
+                .then((res) => {
+                    console.log(res);
+                    switch (res.status) {
+                        case 200:
+                            this.alert.type = "success";
+                            this.alert.title = "Jesteś na liście rezerwowej";
+                            this.alert.show = true;
+                            break;
+                        case 201:
+                            this.alert.type = "success";
+                            this.alert.title =
+                                "Zapisałeś się na sesję. Miłej gry";
+                            this.alert.show = true;
+                    }
+                })
+                .catch((err) => {
+                    console.log(err);
+                    switch (err.status) {
+                        case 401:
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Musisz być zalogowany, żeby sie zapisać";
+                            this.alert.show = true;
+                            break;
+                        case 420:
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Nie możesz zapisać się na sesję, którą organizujesz";
+                            this.alert.show = true;
+                            break;
+                        case 404:
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Nie znaleziono sesji, na którą chcesz się zapisać";
+                            this.alert.show = true;
+                            break;
+                        case 500:
+                            this.alert.type = "error";
+                            this.alert.title =
+                                "Nie możemy cię zapisać na tę sesję. Błąd systemu";
+                            this.alert.show = true;
+                            break;
+                        default:
+                            this.alert.show = true;
+                            this.alert.type = "error";
+                            this.alert.title = "Wystąpił nieznany błąd:" + err;
+                    }
+                });
         },
     },
     data() {
