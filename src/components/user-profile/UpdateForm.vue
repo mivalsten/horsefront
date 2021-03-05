@@ -30,6 +30,7 @@ export default {
         return {
             valid: true,
             discord: "",
+            account: {},
         };
     },
     methods: {
@@ -44,7 +45,7 @@ export default {
             profile.discord = this.nickname;
 
             request
-                .updateUserProfile(JSON.stringify(this.profile))
+                .updateUserProfile(JSON.stringify(this.account))
                 .then((res) => {
                     console.log(res);
                 })
@@ -55,7 +56,13 @@ export default {
     },
     components: {},
     mounted() {
-        this.discord = this.nickname;
+        request
+            .getUserProfile()
+            .then((res) => {
+                this.account = res.data;
+                this.discord = res.data.discord;
+            })
+            .catch();
     },
 };
 </script>
