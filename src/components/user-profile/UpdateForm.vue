@@ -7,7 +7,7 @@
                         type="text"
                         v-model="discord"
                         id="discord"
-                        v-on:blur="onBlur"
+                        v-on:change="onBlur"
                         placeholder="np. RandomKoń#2021"
                     ></el-input>
                 </el-form-item>
@@ -29,7 +29,7 @@ export default {
     data() {
         return {
             valid: true,
-            discord: this.nickname,
+            discord: "",
         };
     },
     methods: {
@@ -54,7 +54,9 @@ export default {
         },
     },
     components: {},
-    mounted() {},
+    mounted() {
+        this.discord = this.nickname;
+    },
 };
 </script>
 

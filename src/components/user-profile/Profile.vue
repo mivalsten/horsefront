@@ -22,7 +22,7 @@ export default {
             nickname: "",
         };
     },
-    mounted() {
+    created() {
         request
             .getUserProfile()
             .then((res) => {
