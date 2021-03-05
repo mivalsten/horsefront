@@ -41,8 +41,8 @@ export default {
         },
 
         onSubmit() {
-            const profile = this.profile;
-            profile.discord = this.nickname;
+            const profile = this.account;
+            profile.discord = this.discord;
 
             request
                 .updateUserProfile(JSON.stringify(this.account))
