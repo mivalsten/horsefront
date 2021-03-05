@@ -22,6 +22,7 @@ import request from "../../utils/request";
 import { parseDateAndTime } from "../../utils/date";
 
 export default {
+    props: ["nickname"],
     data() {
         return {
             tableData: [],
