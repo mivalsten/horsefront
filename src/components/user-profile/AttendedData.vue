@@ -22,10 +22,10 @@ import request from "../../utils/request";
 import { parseDateAndTime } from "../../utils/date";
 
 export default {
-    props: ["nickname"],
     data() {
         return {
             tableData: [],
+            nickname: "",
         };
     },
     methods: {
@@ -43,25 +43,32 @@ export default {
         },
     },
     mounted() {
-        request.getAttendedEvents().then((res) => {
-            const data = res.data;
-            const id = this.nickname;
+        request
+            .getUserProfile()
+            .then((res) => {
+                this.nickname = res.data.discord;
+            })
+            .then(() => {
+                request.getAttendedEvents().then((res) => {
+                    const data = res.data;
+                    const id = this.nickname;
 
-            data.forEach((element) => {
-                const info = element.attending.includes(id)
-                    ? "Jesteś na głównej liście"
-                    : "Jesteś na liście rezerwowej";
+                    data.forEach((element) => {
+                        const info = element.attending.includes(id)
+                            ? "Jesteś na głównej liście"
+                            : "Jesteś na liście rezerwowej";
 
-                element = parseDateAndTime(element);
-                this.tableData.push({
-                    date: element.date,
-                    start: element.start,
-                    name: element.name,
-                    url: element.url,
-                    info,
+                        element = parseDateAndTime(element);
+                        this.tableData.push({
+                            date: element.date,
+                            start: element.start,
+                            name: element.name,
+                            url: element.url,
+                            info,
+                        });
+                    });
                 });
             });
-        });
     },
 };
 </script>
