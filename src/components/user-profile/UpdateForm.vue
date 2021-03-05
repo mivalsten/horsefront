@@ -7,7 +7,6 @@
                         type="text"
                         v-model="discord"
                         id="discord"
-                        v-on:change="onBlur"
                         placeholder="np. RandomKoń#2021"
                     ></el-input>
                 </el-form-item>
