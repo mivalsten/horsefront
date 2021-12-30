@@ -1,5 +1,6 @@
 import axios from "axios";
-export const API = "https://sesje.konwent.online/";
+import getEnv from "@/utils/env";
+export const API = getEnv("VUE_APP_API_PATH");
 
 const instance = axios.create({
     baseURL: API,

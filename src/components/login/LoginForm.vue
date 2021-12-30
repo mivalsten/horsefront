@@ -7,11 +7,14 @@
 </template>
 
 <script>
+
+import getEnv from "@/utils/env";
+
 export default {
     methods: {
         redirectToGoogle() {
             window.location.replace(
-                "https://sesje.konwent.online/login/google"
+                getEnv("VUE_APP_BASE_PATH") + "/login/google"
             );
         },
     },
