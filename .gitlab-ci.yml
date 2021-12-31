@@ -1,54 +1,46 @@
 default:
-    image: docker:latest
-    services:
-        - docker:dind
+  image: docker:latest
+  services:
+    - docker:dind
 
-.docker:
-    before_script:
-        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+docker-build:
+  stage: build
+  script:
+    - docker logout
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+    - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
+    - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "test"'
+    variables:
+      DOCKER_TAG: "$CI_COMMIT_REF_SLUG"
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    variables:
+      DOCKER_TAG: "latest"
 
-docker-build-master:
-    extends: .docker
-    script:
-        - docker logout
-        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-        - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE" .
-        - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE"
-    only:
-        - master
-
-docker-build-test:
-    script:
-        - docker logout
-        - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
-        - docker build --pull -t "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG" .
-        - docker push "$CI_REGISTRY/$CI_REGISTRY_IMAGE:$CI_COMMIT_REF_SLUG"
-    only:
-        - test
-
-deploy-master:
-    needs: ["docker-build-master"]
-    stage: deploy
-    image: debian
-    before_script:
+deploy:
+  needs: ["docker-build"]
+  stage: deploy
+  image: debian
+  before_script:
   ##
   ## Install ssh-agent if not already installed, it is required by Docker.
   ## (change apt-get to yum if you use an RPM-based image)
   ##
-        - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
-        - eval $(ssh-agent -s)
+    - 'which ssh-agent || ( apt-get update -y && apt-get install openssh-client git -y )'
+    - eval $(ssh-agent -s)
   ## Add the SSH key stored in SSH_PRIVATE_KEY variable to the agent store
   ## We're using tr to fix line endings which makes ed25519 keys work
   ## without extra base64 encoding.
   ## https://gitlab.com/gitlab-examples/ssh-private-key/issues/1#note_48526556
   ##
-        - echo -n "$SSH_PRIVATE_KEY" > sshkey
-        - chmod 600 sshkey
-        - ssh-add sshkey
-        - mkdir -p ~/.ssh
-        - chmod 700 ~/.ssh
-        - ssh-keyscan api.konwent.online >> ~/.ssh/known_hosts
-        - chmod 644 ~/.ssh/known_hosts
+    - echo -n "$SSH_PRIVATE_KEY" > sshkey
+    - chmod 600 sshkey
+    - ssh-add sshkey
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - ssh-keyscan api.konwent.online >> ~/.ssh/known_hosts
+    - chmod 644 ~/.ssh/known_hosts
   ##
   ## You can optionally disable host key checking. Be aware that by adding that
   ## you are suspectible to man-in-the-middle attacks.
@@ -56,9 +48,12 @@ deploy-master:
   ## you will overwrite your user's SSH config.
   ##
   #- '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    script:
-        - ssh gitlab@api.konwent.online "sudo /srv/horsefront/upgrade.sh"
-    only:
-        - master
-
-
+  script:
+    - ssh gitlab@api.konwent.online "/srv/$DIR_NAME/upgrade.sh"
+  rules:
+  - if: '$CI_COMMIT_REF_NAME == "test"'
+    variables:
+      DIR_NAME: "horsepower-test"
+  - if: '$CI_COMMIT_REF_NAME == "master"'
+    variables:
+      DIR_NAME: "horsepower"
