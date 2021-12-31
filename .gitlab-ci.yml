@@ -53,7 +53,7 @@ deploy:
   rules:
   - if: '$CI_COMMIT_REF_NAME == "test"'
     variables:
-      DIR_NAME: "horsefront-test"
+      DIR_NAME: "horsepower-test"
   - if: '$CI_COMMIT_REF_NAME == "master"'
     variables:
-      DIR_NAME: "horsefront"
+      DIR_NAME: "horsepower"

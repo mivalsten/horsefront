@@ -14,4 +14,3 @@ RUN ["chmod", "+x", "/usr/share/nginx/entrypoint.sh"]
 ENTRYPOINT ["/usr/share/nginx/entrypoint.sh"]
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
-
