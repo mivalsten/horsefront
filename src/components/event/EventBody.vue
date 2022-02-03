@@ -1,10 +1,10 @@
 <template>
     <ul class="card-body-list">
-        <li>Liczba uczestników: {{ places }}/{{ max }}</li>
         <li>Data: {{ date }}</li>
         <li>Godzina: {{ time }}</li>
         <li>System: {{ system }}</li>
-        <li>Mistrz Gry: {{ organizer }}</li>
+        <li>Liczba uczestników: {{ max - places }}/{{ max }}</li>
+        <li>MG: {{ organizer }}</li>
     </ul>
 </template>
 
