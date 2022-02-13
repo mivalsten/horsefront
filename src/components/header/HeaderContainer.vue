@@ -6,8 +6,8 @@
 </template>
 
 <script>
-import HeaderLogo from "./HeaderLogo";
-import HeaderNav from "./HeaderNav";
+import HeaderLogo from "./HeaderLogo.vue";
+import HeaderNav from "./HeaderNav.vue";
 
 export default {
     components: {

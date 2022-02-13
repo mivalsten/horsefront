@@ -5,7 +5,7 @@
 
 <script>
 import HeaderContainer from "./components/header/HeaderContainer.vue";
-import ContentContainer from "./components/ContentContainer";
+import ContentContainer from "./components/ContentContainer.vue";
 
 export default {
     name: "App",

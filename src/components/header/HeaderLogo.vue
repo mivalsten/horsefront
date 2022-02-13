@@ -1,5 +1,5 @@
 <template>
-    <img src="logo.png" alt="Konline" class="logo" />
+    <img src="/logo.png" alt="Konline" class="logo" />
     <h1>Hiperkoń</h1>
 </template>
 
