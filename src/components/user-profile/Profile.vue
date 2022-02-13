@@ -10,7 +10,7 @@
 
 <script>
 import UpdateForm from "./UpdateForm.vue";
-import AttendedData from "./AttendedData";
+import AttendedData from "./AttendedData.vue";
 import request from "../../utils/request";
 // import OrganizedData from "./OrganizedData";
 
