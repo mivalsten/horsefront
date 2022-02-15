@@ -7,10 +7,10 @@ const app = createApp(App);
 app.use(router);
 
 const gAuthOptions = {
-    clientId:
-        "513565002477-bmg6sjdr2gbtcf1eon15udvr0bjkgp9n.apps.googleusercontent.com",
-    scope: "email",
-    prompt: "consent",
+  clientId:
+    "513565002477-bmg6sjdr2gbtcf1eon15udvr0bjkgp9n.apps.googleusercontent.com",
+  scope: "email",
+  prompt: "consent",
 };
 app.use(GAuth, gAuthOptions);
 

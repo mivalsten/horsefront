@@ -1,16 +1,14 @@
 <template>
-  <div>Dodaj sesję</div>
+  <h2>Dodaj sesję</h2>
   <session-form></session-form>
 </template>
 <script>
-import SessionForm from "./SessionForm.vue"
+import SessionForm from "./SessionForm.vue";
 export default {
   components: {
-    SessionForm
-  }
-}
+    SessionForm,
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
