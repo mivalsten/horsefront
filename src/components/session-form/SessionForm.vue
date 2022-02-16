@@ -14,8 +14,8 @@
     <el-form-item label="Nick do discorda">
       <el-input v-model="form.discord"></el-input>
     </el-form-item>
-    <el-form-item label="Adres do roll2-">
-      <el-input v-model="form.roll2"></el-input>
+    <el-form-item label="Adres do roll20">
+      <el-input v-model="form.roll20Mail"></el-input>
     </el-form-item>
     <el-form-item label="Numer telefonu">
       <el-input v-model="form.phone"></el-input>
@@ -108,40 +108,25 @@
       <el-input v-model="form.other" :rows="3" type="textarea"></el-input>
     </el-form-item>
     <el-form-item>
-      <el-button type="primary">Zgłoś</el-button>
+      <el-button type="primary" @click="onSubmit()">Zgłoś</el-button>
       <el-button>Wyczyść</el-button>
     </el-form-item>
   </el-form>
 </template>
 
 <script setup>
+import { storeToRefs } from "pinia";
 import { reactive } from "vue";
 import { success, danger } from "../../consts/colors";
-const form = reactive({
-  mail: "",
-  organizerFullName: "",
-  discord: "",
-  roll20Mail: "",
-  phone: "",
-  organizerDisplayName: "",
-  organization: "",
-  title: "",
-  description: "",
-  game: "",
-  tags: [""],
-  triggers: [""],
-  safetyTools: [""],
-  minimalCount: 3,
-  maximalCount: 3,
-  isNewbieFriendly: false,
-  isSettingFamiliarityRequired: false,
-  isCameraRequired: false,
-  userPreparation: "",
-  date: "",
-  time: "",
-  other: "",
-  toolsPreference: "",
-});
+import { SessionForm } from "../../models/SessionForm";
+import { useProfile } from "../../stores/profile.store";
+
+const profileState = useProfile();
+const { profile } = storeToRefs(profileState);
+const form = reactive(SessionForm);
+const onSubmit = () => {
+  console.log(profile.value.isComplete);
+};
 </script>
 
 <style>

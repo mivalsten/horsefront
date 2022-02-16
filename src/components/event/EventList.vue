@@ -1,14 +1,14 @@
 <template>
-    <div class="event-list" @sign-up="onAssign">
-        <event-container
-            v-for="(event, name, index) in events"
-            :key="index"
-            :eventData="event"
-        ></event-container>
-    </div>
-    <div class="event-list event-list-placeholder" v-if="placeholder">
-        Brak sesji do wyświetlenia 😭😭😭
-    </div>
+  <div class="event-list" @sign-up="onAssign">
+    <event-container
+      v-for="(event, name, index) in events"
+      :key="index"
+      :eventData="event"
+    ></event-container>
+  </div>
+  <div class="event-list event-list-placeholder" v-if="placeholder">
+    Brak sesji do wyświetlenia 😭😭😭
+  </div>
 </template>
 
 <script>
@@ -16,60 +16,60 @@ import EventContainer from "./EventContainer.vue";
 import request from "../../utils/request";
 import { parseDateAndTime } from "../../utils/date";
 export default {
-    components: { EventContainer },
-    data() {
-        return {
-            events: [],
-            message: {
-                type: "info",
-                visible: true,
-                body: "To jest standard message",
-            },
-            placeholder: false,
-        };
+  components: { EventContainer },
+  data() {
+    return {
+      events: [],
+      message: {
+        type: "info",
+        visible: true,
+        body: "To jest standard message",
+      },
+      placeholder: false,
+    };
+  },
+  created() {
+    this.showEvents();
+  },
+  methods: {
+    onAssign(msg) {
+      this.showEvents();
+      this.message.body = msg;
+      this.message.visible = true;
     },
-    created() {
-        this.showEvents();
-    },
-    methods: {
-        onAssign(msg) {
-            this.showEvents();
-            this.message.body = msg;
-            this.message.visible = true;
-        },
-        showEvents() {
-            request
-                .getEvents()
-                .then((events) => {
-                    events = events.data;
-                    this.events = Object.entries(events)
-                        .sort((a, b) => {
-                            return new Date(a[1].start) - new Date(b[1].start);
-                        })
-                        .map((event) => {
-                            event[1].id = event[0];
+    showEvents() {
+      request
+        .getEvents()
+        .then((events) => {
+          events = events.data;
+          this.events = Object.entries(events)
+            .sort((a, b) => {
+              return new Date(a[1].start) - new Date(b[1].start);
+            })
+            .map((event) => {
+              event[1].id = event[0];
 
-                            return parseDateAndTime(event[1]);
-                        });
-                    this.placeholder = !this.events.length;
-                })
-                .catch(() => {
-                    this.placeholder = this.events.length;
-                });
-        },
+              return parseDateAndTime(event[1]);
+            });
+          this.placeholder = !this.events.length;
+        })
+        .catch(() => {
+          this.placeholder = this.events.length;
+        });
     },
+  },
 };
 </script>
 
 <style>
 .event-list {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  box-sizing: border-box;
 }
 .event-list-placeholder {
-    justify-content: center;
-    font-size: xx-large;
+  justify-content: center;
+  font-size: xx-large;
 }
 </style>
