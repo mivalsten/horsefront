@@ -1,74 +1,105 @@
 <template>
-    <div class="form-container">
-        <el-form label-width="120px">
-            <div class="p-field">
-                <el-form-item label="Nick do discorda">
-                    <el-input
-                        type="text"
-                        v-model="discord"
-                        id="discord"
-                        placeholder="np. RandomKoń#2021"
-                    ></el-input>
-                </el-form-item>
-
-                <small id="username2-help" class="p-invalid" v-if="!valid"
-                    >To nie jest prawidłowy nick do Discorda</small
-                >
-            </div>
-        </el-form>
-    </div>
-    <el-button type="primary" v-on:click="onSubmit"> Zapisz zmiany </el-button>
+  <div class="form-container" lang="pl" title="">
+    <el-form
+      label-width="auto"
+      label-position="right"
+      :model="form"
+      :rules="rules"
+      ref="formRef"
+    >
+      <el-form-item label="Nick do discorda" prop="discord" required>
+        <el-input
+          v-model="form.discord"
+          placeholder="np. RandomKoń#2021"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Imię i nazwisko" prop="fullName" required>
+        <el-input
+          v-model="form.fullName"
+          placeholder="np. Joanna Końska"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Twój pseudonim" prop="nickName" required>
+        <el-input v-model="form.nickName" placeholder="np. Koń"></el-input>
+      </el-form-item>
+      <el-form-item label="Adres e-mail" prop="emailAddress" required>
+        <el-input
+          v-model="form.emailAddress"
+          placeholder="np. konline2022@example.com"
+        ></el-input>
+      </el-form-item>
+      <el-form-item label="Organizacja" prop="organisation">
+        <el-input
+          v-model="form.organisation"
+          placeholder="np. Avangarda"
+        ></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="onSubmit(formRef)">
+          Zapisz zmiany
+        </el-button>
+      </el-form-item>
+    </el-form>
+  </div>
 </template>
 
-<script>
-import request from "../../utils/request";
+<script lang="ts" setup>
+import { reactive, ref } from "vue";
+import type { ElForm } from "element-plus";
+import { UserProfileForm } from "../../models/UserProfile";
+import { useProfile } from "../../stores/profile.store";
 
-export default {
-    props: ["nickname", "profile"],
-    data() {
-        return {
-            valid: true,
-            discord: "",
-            account: {},
-        };
-    },
-    methods: {
-        onBlur() {
-            //Pattern for discord nickname
-            const pattern = /.{3,32}#[0-9]{4}$/;
-            this.valid = this.nickname.match(pattern);
-        },
+type FormInstance = InstanceType<typeof ElForm>;
 
-        onSubmit() {
-            const profile = this.account;
-            profile.discord = this.discord;
+const profileStore = useProfile();
+const form = reactive(UserProfileForm);
+const formRef = ref<FormInstance>();
+const rules = reactive({
+  discord: [
+    {
+      required: true,
+      message: "Podaj nam swój nick do discorda",
+      trigger: "blur",
+    },
+  ],
+  fullName: [
+    {
+      required: true,
+      message: "Podaj nam swoje imię i nazwisko",
+      trigger: "blur",
+    },
+  ],
+  displayName: [
+    {
+      required: true,
+      message: "Podaj nam swój pseudonim. Będzie on wyświetlany w aplikacji",
+      trigger: "blur",
+    },
+  ],
+  emailAddress: [
+    {
+      required: true,
+      message: "Podaj nam swój adres e-mail",
+      trigger: "blur",
+    },
+  ],
+  organisation: {},
+});
 
-            request
-                .updateUserProfile(JSON.stringify(this.account))
-                .then((res) => {
-                    console.log(res);
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        },
-    },
-    components: {},
-    mounted() {
-        request
-            .getUserProfile()
-            .then((res) => {
-                this.account = res.data;
-                this.discord = res.data.discord;
-            })
-            .catch();
-    },
+const onSubmit = (formEl) => {
+  if (formEl) {
+    formEl.validate((valid) => {
+      if (valid) {
+        profileStore.editUserProfile(formEl.model);
+      }
+    });
+  }
 };
 </script>
 
 <style>
 .form-container {
-    width: 90%;
-    margin: auto;
+  width: 90%;
+  margin: auto;
 }
 </style>
