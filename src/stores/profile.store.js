@@ -1,11 +1,20 @@
 import { defineStore } from "pinia";
-import { UserProfile } from "../models/UserProfile";
+import { UserProfileForm } from "../models/UserProfile";
 
 export const useProfile = defineStore("profile", {
-  state: () => ({ profile: UserProfile }),
+  state: () => ({
+    profileData: UserProfileForm,
+    isComplete: false,
+    isAdmin: true,
+    // TODO: Writing actions after logging in
+    isLoggedIn: true,
+    attending: {},
+    organising: {},
+  }),
   actions: {
     editUserProfile(formModel) {
-      this.profile = { ...formModel, isComplete: true };
+      this.profileData = { ...formModel };
+      this.isComplete = true;
     },
   },
 });

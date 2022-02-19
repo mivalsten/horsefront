@@ -6,7 +6,8 @@
       description="Nie mozesz zgłaszać sesji i w nich uczestniczyć, dopóki nie uzupełnisz profilu"
       effect="dark"
       show-icon
-      :v-if="profile.isComplete"
+      closable="false"
+      v-if="!isComplete"
     >
     </el-alert>
     <router-view />
@@ -18,7 +19,7 @@ import { storeToRefs } from "pinia";
 import { useProfile } from "../stores/profile.store";
 
 const profileState = useProfile();
-const { profile } = storeToRefs(profileState);
+const { isComplete } = storeToRefs(profileState);
 </script>
 
 <style>
