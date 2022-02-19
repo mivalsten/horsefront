@@ -28,8 +28,8 @@
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Twój pseudonim" prop="nickName" required>
-        <el-input v-model="form.nickName" placeholder="np. Koń"></el-input>
+      <el-form-item label="Twój pseudonim" prop="displayName" required>
+        <el-input v-model="form.displayName" placeholder="np. Koń"></el-input>
       </el-form-item>
       <el-form-item label="Adres e-mail" prop="emailAddress" required>
         <el-input
@@ -58,7 +58,7 @@ import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
 import { UserProfileForm } from "../../models/UserProfile";
 import { useProfile } from "../../stores/profile.store";
-import { formValidator } from "./update-form-validator";
+import { profileFormValidator } from "../../validators/profile-form-validator";
 
 type FormInstance = InstanceType<typeof ElForm>;
 
@@ -66,7 +66,7 @@ const profileStore = useProfile();
 const form = reactive(UserProfileForm);
 const formRef = ref<FormInstance>();
 const submitRef = ref(false);
-const rules = reactive(formValidator);
+const rules = reactive(profileFormValidator);
 
 const onSubmit = (formEl) => {
   if (formEl) {

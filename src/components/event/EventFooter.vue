@@ -1,7 +1,7 @@
 <template>
-  <footer class="card-footer" @auth="auth">
-    <el-button type="info" v-on:click="showDetails">Szczegóły</el-button>
-    <el-button type="primary" :disabled="isComplete" v-if="isLoggedIn">
+  <footer class="card-footer">
+    <el-button type="info">Szczegóły</el-button>
+    <el-button type="primary" :disabled="!isComplete" v-if="isLoggedIn">
       Zapisz się
     </el-button>
     <el-button type="warning" v-if="isAdmin && isLoggedIn">Edytuj</el-button>
@@ -13,10 +13,6 @@ import { storeToRefs } from "pinia";
 import { useProfile } from "../../stores/profile.store";
 const profileState = useProfile();
 const { isComplete, isAdmin, isLoggedIn } = storeToRefs(profileState);
-
-const showDetails = () => {
-  this.$router.push({ name: "details", params: { id: this.id } });
-};
 
 // import request from "../../utils/request";
 // export default {

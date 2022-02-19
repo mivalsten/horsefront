@@ -1,10 +1,10 @@
 export const SessionForm = {
   mail: "",
-  organizerFullName: "",
+  fullName: "",
   discord: "",
   roll20Mail: "",
   phone: "",
-  organizerDisplayName: "",
+  displayName: "",
   organization: "",
   title: "",
   description: "",
