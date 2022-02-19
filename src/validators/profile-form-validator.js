@@ -1,7 +1,7 @@
-import { discord, fullName } from "../../consts/form-patterns";
-import { patternValidator } from "../../utils/validator";
+import { discord, email, fullName } from "../consts/form-patterns";
+import { patternValidator } from "../utils/validator";
 
-export const formValidator = {
+export const profileFormValidator = {
   discord: [
     {
       required: true,
@@ -42,6 +42,13 @@ export const formValidator = {
       required: true,
       message: "Podaj nam swój adres e-mail",
       trigger: "blur",
+    },
+    {
+      trigger: "blur",
+      message: "Podaj poprawny adres email",
+      validator: (rule, value, callback) => {
+        patternValidator(value, callback, email);
+      },
     },
   ],
   organisation: {},

@@ -6,24 +6,24 @@
     label-position="right"
   >
     <el-form-item label="Adres e-mail">
-      <el-input v-model="form.mail"></el-input>
+      <el-input v-model="form.mail" type="email" prop="emailAddress"></el-input>
     </el-form-item>
-    <el-form-item label="Imię i nazwisko">
+    <el-form-item label="Imię i nazwisko" prop="fullName">
       <el-input v-model="form.organizerFullName"></el-input>
     </el-form-item>
-    <el-form-item label="Nick do discorda">
+    <el-form-item label="Nick do discorda" prop="discord">
       <el-input v-model="form.discord"></el-input>
     </el-form-item>
-    <el-form-item label="Adres do roll20">
+    <el-form-item label="Adres do roll20" prop="roll20">
       <el-input v-model="form.roll20Mail"></el-input>
     </el-form-item>
-    <el-form-item label="Numer telefonu">
+    <el-form-item label="Numer telefonu" prop="phone">
       <el-input v-model="form.phone"></el-input>
     </el-form-item>
-    <el-form-item label="Ksywka">
+    <el-form-item label="Ksywka" prop="displayName">
       <el-input v-model="form.name"></el-input>
     </el-form-item>
-    <el-form-item label="Organizacja">
+    <el-form-item label="Organizacja" prop="organisation">
       <el-input v-model="form.organization"></el-input>
     </el-form-item>
     <el-form-item label="Tytuł sesji">
