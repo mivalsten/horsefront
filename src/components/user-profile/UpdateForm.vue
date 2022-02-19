@@ -1,5 +1,14 @@
 <template>
   <div class="form-container" lang="pl" title="">
+    <el-alert
+      title="Pomyślnie zapisano dane o twoim profilu"
+      type="success"
+      show-icon
+      close-text="Dzięki!"
+      effect="dark"
+      v-if="submitRef"
+    >
+    </el-alert>
     <el-form
       label-width="auto"
       label-position="right"
@@ -26,6 +35,7 @@
         <el-input
           v-model="form.emailAddress"
           placeholder="np. konline2022@example.com"
+          type="email"
         ></el-input>
       </el-form-item>
       <el-form-item label="Organizacja" prop="organisation">
@@ -48,49 +58,22 @@ import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
 import { UserProfileForm } from "../../models/UserProfile";
 import { useProfile } from "../../stores/profile.store";
+import { formValidator } from "./update-form-validator";
 
 type FormInstance = InstanceType<typeof ElForm>;
 
 const profileStore = useProfile();
 const form = reactive(UserProfileForm);
 const formRef = ref<FormInstance>();
-const rules = reactive({
-  discord: [
-    {
-      required: true,
-      message: "Podaj nam swój nick do discorda",
-      trigger: "blur",
-    },
-  ],
-  fullName: [
-    {
-      required: true,
-      message: "Podaj nam swoje imię i nazwisko",
-      trigger: "blur",
-    },
-  ],
-  displayName: [
-    {
-      required: true,
-      message: "Podaj nam swój pseudonim. Będzie on wyświetlany w aplikacji",
-      trigger: "blur",
-    },
-  ],
-  emailAddress: [
-    {
-      required: true,
-      message: "Podaj nam swój adres e-mail",
-      trigger: "blur",
-    },
-  ],
-  organisation: {},
-});
+const submitRef = ref(false);
+const rules = reactive(formValidator);
 
 const onSubmit = (formEl) => {
   if (formEl) {
     formEl.validate((valid) => {
       if (valid) {
         profileStore.editUserProfile(formEl.model);
+        submitRef.value = true;
       }
     });
   }
