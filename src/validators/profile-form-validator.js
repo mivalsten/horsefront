@@ -47,6 +47,8 @@ export const profileFormValidator = {
       trigger: "blur",
       message: "Podaj poprawny adres email",
       validator: (rule, value, callback) => {
+        console.log("DUPA");
+        console.log(value);
         patternValidator(value, callback, email);
       },
     },

@@ -6,7 +6,7 @@
       description="Nie mozesz zgłaszać sesji i w nich uczestniczyć, dopóki nie uzupełnisz profilu"
       effect="dark"
       show-icon
-      closable="false"
+      :closable="false"
       v-if="!isComplete"
     >
     </el-alert>
