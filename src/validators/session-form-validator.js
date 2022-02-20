@@ -22,11 +22,4 @@ export const sessionFormValidator = {
       message: "Podaj nam system/setting",
     },
   ],
-  triggers: [
-    {
-      require: true,
-      trigger: "blur",
-      message: "Podaj nam system/setting",
-    },
-  ],
 };

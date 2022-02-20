@@ -8,17 +8,18 @@
     :router="true"
   >
     <el-menu-item index="/">Lista Sesji</el-menu-item>
-    <!-- <el-menu-item index="attended">Moje Sesje</el-menu-item> -->
-    <el-menu-item index="add-session">Zgłoś Sesję</el-menu-item>
-    <el-menu-item index="login">Login</el-menu-item>
-    <el-menu-item index="profile">Profile</el-menu-item>
+    <el-menu-item index="add-session" v-if="isAdmin">Zgłoś Sesję</el-menu-item>
+    <el-menu-item index="admin-panel">Panel Admina</el-menu-item>
+    <el-menu-item index="login" v-if="true">Login</el-menu-item>
+    <el-menu-item index="profile" v-if="isLoggedIn">Profil</el-menu-item>
   </el-menu>
 </template>
 
-<script>
-export default {
-  methods: {},
-};
+<script setup>
+import { storeToRefs } from "pinia";
+import { useProfile } from "../../stores/profile.store";
+const profileState = useProfile();
+const { isAdmin, isLoggedIn } = storeToRefs(profileState);
 </script>
 <style lang="scss">
 .el-menu {

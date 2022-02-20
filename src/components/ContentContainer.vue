@@ -7,7 +7,7 @@
       effect="dark"
       show-icon
       :closable="false"
-      v-if="!isComplete"
+      v-if="!isComplete && isLoggedIn && !isAdmin"
     >
     </el-alert>
     <router-view />
@@ -19,7 +19,7 @@ import { storeToRefs } from "pinia";
 import { useProfile } from "../stores/profile.store";
 
 const profileState = useProfile();
-const { isComplete } = storeToRefs(profileState);
+const { isComplete, isLoggedIn, isAdmin } = storeToRefs(profileState);
 </script>
 
 <style>

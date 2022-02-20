@@ -1,5 +1,5 @@
 export const SessionDetails = {
-  organizerDisplayName: "",
+  displayName: "",
   organization: "",
   title: "",
   description: "",
@@ -15,6 +15,6 @@ export const SessionDetails = {
   userPreparation: "",
   date: "",
   time: "",
-  other: "",
-  toolsPreference: "",
+  freePlaces: 3,
+  id: 0,
 };
