@@ -2,20 +2,22 @@
   <ul class="card-body-list">
     <li>Data: {{ date }}</li>
     <li>Godzina: {{ time }}</li>
-    <li>System: {{ system }}</li>
-    <li>Wolnych miejsc: {{ places }}</li>
+    <li>System: {{ game }}</li>
+    <li>Wolnych miejsc: {{ freePlaces }}</li>
     <li>MG: {{ organizer }}</li>
   </ul>
 </template>
 
-<script>
-export default {
-  props: ["max", "date", "time", "places", "system", "organizer"],
-
-  data() {
-    return {};
-  },
-};
+<script setup>
+const props = defineProps({
+  date: String,
+  time: String,
+  places: Number,
+  game: String,
+  freePlaces: Number,
+  organizer: String,
+  id: Number,
+});
 </script>
 
 <style>

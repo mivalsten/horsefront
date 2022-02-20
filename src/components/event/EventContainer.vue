@@ -4,26 +4,22 @@
     <event-body
       :date="eventData.date"
       :time="eventData.time"
-      :places="eventData.attending_count"
-      :system="eventData.game"
+      :freePlaces="eventData.freePlaces"
+      :game="eventData.game"
       :organizer="eventData.displayName"
     ></event-body>
     <event-footer :id="eventData.id"></event-footer>
   </el-card>
 </template>
 
-<script>
+<script setup>
 import EventBody from "./EventBody.vue";
 import EventFooter from "./EventFooter.vue";
 import EventHeader from "./EventHeader.vue";
 
-export default {
-  components: { EventBody, EventHeader, EventFooter },
-  props: ["eventData"],
-  data() {
-    return {};
-  },
-};
+const props = defineProps({
+  eventData: {},
+});
 </script>
 
 <style>

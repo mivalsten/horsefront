@@ -5,6 +5,7 @@
 declare module 'vue' {
   export interface GlobalComponents {
     AddSessionScreen: typeof import('./src/components/session-form/AddSessionScreen.vue')['default']
+    AdminPanel: typeof import('./src/components/admin-panel/AdminPanel.vue')['default']
     AttendedData: typeof import('./src/components/user-profile/AttendedData.vue')['default']
     ContentContainer: typeof import('./src/components/ContentContainer.vue')['default']
     DetailView: typeof import('./src/components/details/DetailView.vue')['default']

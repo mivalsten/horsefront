@@ -5,6 +5,7 @@ import Profile from "@/components/user-profile/Profile.vue";
 import DetailView from "@/components/details/DetailView.vue";
 import AddSessionScreen from "@/components/session-form/AddSessionScreen.vue";
 import EditSessionScreen from "@/components/session-form/EditSessionScreen.vue";
+import AdminPanel from "@/components/admin-panel/AdminPanel.vue";
 
 const routes = [
   {
@@ -36,6 +37,11 @@ const routes = [
     path: "/edit-session/:id",
     name: "Edytuj sesję",
     component: EditSessionScreen,
+  },
+  {
+    path: "/admin-panel",
+    name: "Panel Admina",
+    component: AdminPanel,
   },
 ];
 

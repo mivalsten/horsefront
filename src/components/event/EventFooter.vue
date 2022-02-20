@@ -1,6 +1,6 @@
 <template>
   <footer class="card-footer">
-    <el-button type="info">Szczegóły</el-button>
+    <el-button type="info" @click="showDetails">Szczegóły</el-button>
     <el-button type="primary" :disabled="!isComplete" v-if="isLoggedIn">
       Zapisz się
     </el-button>
@@ -10,10 +10,18 @@
 
 <script setup>
 import { storeToRefs } from "pinia";
+import { useRouter } from "vue-router";
 import { useProfile } from "../../stores/profile.store";
 const profileState = useProfile();
 const { isComplete, isAdmin, isLoggedIn } = storeToRefs(profileState);
+const router = useRouter();
+const props = defineProps({
+  id: Number,
+});
 
+const showDetails = () => {
+  router.push({ name: "details", params: { id: props.id } });
+};
 // import request from "../../utils/request";
 // export default {
 //   props: ["id"],
