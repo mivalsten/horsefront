@@ -8,10 +8,10 @@
     :router="true"
   >
     <el-menu-item index="/">Lista Sesji</el-menu-item>
-    <el-menu-item index="add-session" v-if="isAdmin">Zgłoś Sesję</el-menu-item>
-    <el-menu-item index="admin-panel">Panel Admina</el-menu-item>
-    <el-menu-item index="login" v-if="true">Login</el-menu-item>
-    <el-menu-item index="profile" v-if="isLoggedIn">Profil</el-menu-item>
+    <el-menu-item index="/add-session" v-if="isAdmin">Zgłoś Sesję</el-menu-item>
+    <el-menu-item index="/admin-panel">Panel Admina</el-menu-item>
+    <el-menu-item index="/login" v-if="true">Login</el-menu-item>
+    <el-menu-item index="/profile" v-if="isLoggedIn">Profil</el-menu-item>
   </el-menu>
 </template>
 

@@ -27,6 +27,7 @@ const routes = [
     path: "/details/:id",
     name: "details",
     component: DetailView,
+    props: true,
   },
   {
     path: "/add-session",
@@ -37,6 +38,7 @@ const routes = [
     path: "/edit-session/:id",
     name: "Edytuj sesję",
     component: EditSessionScreen,
+    props: true,
   },
   {
     path: "/admin-panel",
