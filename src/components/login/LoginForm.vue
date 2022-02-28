@@ -15,28 +15,29 @@ import getEnv from "@/utils/env";
 export default {
   methods: {
     redirectToGoogle() {
-        window.location.replace(
-            getEnv("VUE_APP_BASE_PATH") + "/login/google"
-        );
+      window.location.replace(getEnv("VUE_APP_BASE_PATH") + "/auth/google");
     },
     fbLogin() {
-        FB.login(function(response) {
-            if (response.authResponse) {
-                    fetch(getEnv("VUE_APP_BASE_PATH") + "/login/facebook", {
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json'
-                    },
-                    method: "POST",
-                    body: JSON.stringify(response.authResponse)
-                    }).then(
-                        response => response.json()
-                    ).then(response => window.location.href = response.detail);
-            }
-        }, {scope: 'email'});
-    }
-  }
-}
+      FB.login(
+        function (response) {
+          if (response.authResponse) {
+            fetch(getEnv("VUE_APP_BASE_PATH") + "/login/facebook", {
+              headers: {
+                Accept: "application/json",
+                "Content-Type": "application/json",
+              },
+              method: "POST",
+              body: JSON.stringify(response.authResponse),
+            })
+              .then((response) => response.json())
+              .then((response) => (window.location.href = response.detail));
+          }
+        },
+        { scope: "email" }
+      );
+    },
+  },
+};
 </script>
 
 <style>
