@@ -1,7 +1,7 @@
 <template>
   <div class="event-list">
     <event-container
-      v-for="event in sessionList"
+      v-for="event in eventState.sortedList"
       :key="event.id"
       :eventData="event"
     ></event-container>
@@ -12,12 +12,8 @@
 </template>
 
 <script setup>
-import { storeToRefs } from "pinia";
 import { useEvent } from "../../stores/event.store";
 const eventState = useEvent();
-eventState.fetchSessions();
-const { sessionList } = storeToRefs(eventState);
-
 // import EventContainer from "./EventContainer.vue";
 // import request from "../../utils/request";
 // import { parseDateAndTime } from "../../utils/date";

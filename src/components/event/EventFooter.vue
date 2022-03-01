@@ -1,7 +1,12 @@
 <template>
   <footer class="card-footer">
     <el-button type="info" @click="showDetails">Szczegóły</el-button>
-    <el-button type="primary" :disabled="!isComplete" v-if="isLoggedIn">
+    <el-button
+      type="primary"
+      :disabled="!isComplete"
+      v-if="isLoggedIn"
+      @click="signToEvent"
+    >
       Zapisz się
     </el-button>
     <el-button type="warning" v-if="isAdmin && isLoggedIn">Edytuj</el-button>
@@ -11,16 +16,21 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
+import { attendEvent } from "../../services/event.service";
 import { useProfile } from "../../stores/profile.store";
 const profileState = useProfile();
 const { isComplete, isAdmin, isLoggedIn } = storeToRefs(profileState);
 const router = useRouter();
 const props = defineProps({
-  id: Number,
+  id: String,
 });
 
 const showDetails = () => {
   router.push({ name: "details", params: { id: props.id } });
+};
+
+const signToEvent = () => {
+  attendEvent(props.id);
 };
 // import request from "../../utils/request";
 // export default {
