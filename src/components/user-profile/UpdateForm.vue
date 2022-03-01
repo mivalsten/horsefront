@@ -1,8 +1,8 @@
 <template>
   <div class="form-container" lang="pl" title="">
     <el-alert
-      title="Pomyślnie zapisano dane o twoim profilu"
-      type="success"
+      :title="profileStore.message[profileStore.messageStatus].content"
+      :type="profileStore.messageStatus"
       show-icon
       close-text="Dzięki!"
       effect="dark"
@@ -24,16 +24,16 @@
       </el-form-item>
       <el-form-item label="Imię i nazwisko" prop="fullName" required>
         <el-input
-          v-model="form.fullName"
+          v-model="form.name"
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
       <el-form-item label="Twój pseudonim" prop="displayName" required>
-        <el-input v-model="form.displayName" placeholder="np. Koń"></el-input>
+        <el-input v-model="form.who" placeholder="np. Koń"></el-input>
       </el-form-item>
       <el-form-item label="Adres e-mail" prop="emailAddress" required>
         <el-input
-          v-model="form.emailAddress"
+          v-model="form.roll20"
           placeholder="np. konline2022@example.com"
           type="email"
         ></el-input>

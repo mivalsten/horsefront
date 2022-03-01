@@ -6,21 +6,37 @@ export const useProfile = defineStore("profile", {
   state: () => ({
     profileData: UserProfileForm,
     isComplete: false,
-    isAdmin: true,
+    isAdmin: false,
     // TODO: Writing actions after logging in
     isLoggedIn: false,
     attending: {},
     organising: {},
+    messgaeStatus: "",
+    message: {
+      error: {
+        type: "error",
+        content:
+          "Ups, coś poszło nie tak, przeładuj aplikację i spróbuj jeszcze raz",
+      },
+      success: {
+        type: "success",
+        content: "Pomyślnie udało ci się zalogować",
+      },
+    },
   }),
   actions: {
     editUserProfile(formModel) {
-      this.profileData = { ...formModel };
-      setProfileDetails(this.profileData);
-      this.isComplete = true;
+      try {
+        this.profileData = { ...formModel, level: 0 };
+        setProfileDetails(this.profileData);
+        this.isComplete = true;
+        this.messgaeStatus = "success";
+      } catch (err) {
+        this.messgaeStatus = "error";
+      }
     },
     checkAuth() {
-      const status = sessionStorage.getItem("fbssls_369001121713182");
-      console.log(status);
+      console.log(sessionStorage);
       this.isLoggedIn = true;
     },
     async fillProfile() {
