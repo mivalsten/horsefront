@@ -15,5 +15,5 @@ export const getProfileData = () => {
 };
 
 export const setProfileDetails = (data) => {
-  return instance.post("/i_am/changing", data);
+  return instance.patch("/i_am/changing", data);
 };
