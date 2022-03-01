@@ -1,56 +1,78 @@
 import { defineStore } from "pinia";
 import { SessionForm } from "../models/SessionForm";
-import { getEvents } from "../services/event.service";
+import { getEvent, getEvents } from "../services/event.service";
 import { getMappedSessionData } from "../utils/sessions";
+import { eventLabels } from "../utils/labels";
 
 export const useEvent = defineStore("session", {
   state: () => ({
     addSessionData: SessionForm,
+    getSessionData: SessionForm,
+    currentSessionId: "",
     sessionList: [],
-    sessionCount: 0,
     message: "",
+    isFetched: false,
+    isOneElementFetched: false,
   }),
   actions: {
     async fetchSessions() {
       try {
         const { data } = await getEvents();
-        this.sessionList = data;
+        this.sessionList = { ...data };
+        this.isFetched = true;
+        this.isOneElementFetched = true;
       } catch (error) {
         this.message = error.message;
       }
     },
-    addNewSession(model) {
+    async fetchSession(id) {
+      try {
+        const { data } = getEvent(id);
+        this.sessionList[id] = { ...data, id };
+        this.isOneElementFetched = true;
+      } catch (error) {
+        this.message = error.message;
+      }
+    },
+    async addNewSession(model) {
       this.sessionList[this.sessionCount] = {
         ...model,
         id: this.sessionCount,
         freePlaces: model.maximalCount,
         isRegistrationOpen: false,
       };
-      this.sortSessionList();
-      this.incrementSessionCount();
     },
-    incrementSessionCount() {
-      this.sessionCount++;
+    setCurrentId(id) {
+      this.currentSessionId = id;
     },
-    sortSessionList() {
-      this.sessionList.sort((a, b) => {
-        return (
-          new Date(`${a.date}T${a.time}:00`) -
-          new Date(`${b.date}T${b.time}:00`)
-        );
+    async getSessionElement(id) {
+      const cached = Object.values(this.sessionList).find((element) => {
+        return element.id == id;
       });
-    },
-    getSessionElement(id) {
-      return getMappedSessionData(
-        this.sessionList.find((element) => {
-          return element.id == parseInt(id, 10);
-        })
-      );
+      this.isOneElementFetched = true;
+      return getMappedSessionData(cached);
     },
   },
   getters: {
-    basicData: (state) => {
-      return state.sessionList.map(getMappedSessionData);
+    sortedList: (state) => {
+      if (!state.isFetched) return state.fetchSessions();
+      const ids = Object.keys(state.sessionList);
+      return Object.values(state.sessionList).map((element, index) => {
+        element.id = ids[index];
+        return getMappedSessionData(element);
+      });
+    },
+    parsedDetails: (state) => {
+      if (!state.isOneElementFetched)
+        state.fetchSession(state.currentSessionId);
+      const data = state.getSessionElement(state.currentSessionId);
+
+      return Object.keys(eventLabels).map((el) => {
+        return {
+          key: eventLabels[el],
+          value: data[el],
+        };
+      });
     },
   },
 });

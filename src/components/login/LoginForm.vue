@@ -8,7 +8,12 @@
     >
   </section>
 </template>
+<script setup>
+import { useProfile } from "../../stores/profile.store";
 
+const profile = useProfile();
+profile.checkAuth();
+</script>
 <script>
 import getEnv from "@/utils/env";
 
@@ -18,7 +23,7 @@ export default {
       window.location.replace(getEnv("VUE_APP_BASE_PATH") + "/auth/google");
     },
     fbLogin() {
-      FB.login(
+      window.FB.login(
         function (response) {
           if (response.authResponse) {
             fetch(getEnv("VUE_APP_BASE_PATH") + "/login/facebook", {

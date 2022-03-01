@@ -1,7 +1,7 @@
 <template>
   <div>
     <el-table
-      :data="tableData"
+      :data="eventState.parsedDetails"
       cell-class-name="text-cell"
       style="width: 90%; margin: auto"
     >
@@ -15,28 +15,36 @@
           </el-icon>
           <div v-else>{{ scope.row.value }}</div>
         </template>
+        <template #fallback> Loading... </template>
       </el-table-column>
     </el-table>
-    <el-button type="primary">Zapisz się</el-button>
+    <el-button
+      type="primary"
+      @click="signToEvent"
+      v-if="isLoggedIn"
+      :disabled="isComplete"
+    >
+      Zapisz się
+    </el-button>
   </div>
 </template>
 <script setup>
+import { storeToRefs } from "pinia";
 import { CircleCheckFilled, CircleCloseFilled } from "@element-plus/icons-vue";
+import { attendEvent } from "../../services/event.service";
 import { useEvent } from "../../stores/event.store";
-import { eventLabels } from "../../utils/labels";
+import { useProfile } from "../../stores/profile.store";
+const profileState = useProfile();
+const { isComplete, isLoggedIn } = storeToRefs(profileState);
 const eventState = useEvent();
 const props = defineProps({
   id: String,
 });
-const tableData = [];
-const eventData = eventState.getSessionElement(props.id);
+eventState.setCurrentId(props.id);
 
-Object.keys(eventLabels).forEach((element) => {
-  tableData.push({
-    header: eventLabels[element],
-    value: eventData[element],
-  });
-});
+const signToEvent = () => {
+  attendEvent(props.id);
+};
 </script>
 <script>
 // import labels from "../../utils/labels";

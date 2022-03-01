@@ -1,10 +1,10 @@
 export const eventLabels = {
-  title: "Tytuł sesji",
+  name: "Tytuł sesji",
   game: "System/Świat",
   date: "Data",
   time: "Godzina",
   triggers: "Triggery",
-  safetyTools: "Narzędzia bezpieczeństwa",
+  safety_tools: "Narzędzia bezpieczeństwa",
   freePlaces: "Wolnych miejsc",
   maximalCount: "Maksymalna liczba uczestników",
   description: "Opis sesji",
