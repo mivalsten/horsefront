@@ -26,7 +26,7 @@ export default {
       window.FB.login(
         function (response) {
           if (response.authResponse) {
-            fetch(getEnv("VUE_APP_BASE_PATH") + "/login/facebook", {
+            fetch(getEnv("VUE_APP_API_PATH") + "/login/facebook", {
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",
