@@ -20,7 +20,7 @@ import getEnv from "@/utils/env";
 export default {
   methods: {
     redirectToGoogle() {
-      window.location.replace(getEnv("VUE_APP_BASE_PATH") + "/auth/google");
+      window.location.replace(getEnv("VUE_APP_API_PATH") + "/auth/google");
     },
     fbLogin() {
       window.FB.login(
