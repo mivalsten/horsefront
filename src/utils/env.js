@@ -1,3 +1,3 @@
 export default function getEnv(name) {
-    return "https://sesje-test.konwent.online/api"
+    return window?.configs?.[name] || process.env[name]
   }
