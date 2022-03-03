@@ -1,8 +1,8 @@
 <template>
   <div class="form-container" lang="pl" title="">
     <el-alert
-      :title="profileStore.message[profileStore.messageStatus].content"
-      :type="profileStore.messageStatus"
+      :title="profileStore.message.title"
+      :type="profileStore.message.type"
       show-icon
       close-text="Dzięki!"
       effect="dark"
@@ -22,13 +22,13 @@
           placeholder="np. RandomKoń#2021"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Imię i nazwisko" prop="fullName" required>
+      <el-form-item label="Imię i nazwisko" prop="name" required>
         <el-input
           v-model="form.name"
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Adres e-mail" prop="emailAddress" required>
+      <el-form-item label="Adres e-mail" prop="email" required>
         <el-input
           v-model="form.email"
           placeholder="np. konline2022@example.com"
