@@ -11,16 +11,29 @@ export const useProfile = defineStore("profile", {
     isAdmin: false,
     level: 0,
     attending: [],
+    message: {
+      type: "",
+      title: "",
+      isShowing: false,
+    },
   }),
   actions: {
-    editUserProfile(formModel) {
+    async editUserProfile(formModel) {
       try {
         this.profileData = { ...formModel, level: 0 };
-        setProfileDetails(this.profileData);
+        await setProfileDetails(this.profileData);
         this.isComplete = true;
-        this.messgaeStatus = "success";
+        this.message = {
+          type: "success",
+          title: "Dane zapisane poprawnie",
+          isShowing: true,
+        };
       } catch (err) {
-        this.messgaeStatus = "error";
+        this.message = {
+          type: "error",
+          title: "Coś poszło nie tak " + err.message,
+          isShowing: true,
+        };
       }
     },
     async checkAuth() {

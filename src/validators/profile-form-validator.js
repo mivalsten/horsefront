@@ -16,7 +16,7 @@ export const profileFormValidator = {
       },
     },
   ],
-  fullName: [
+  name: [
     {
       required: true,
       message: "Podaj nam swoje imię i nazwisko",
@@ -37,7 +37,7 @@ export const profileFormValidator = {
       trigger: "blur",
     },
   ],
-  emailAddress: [
+  email: [
     {
       required: true,
       message: "Podaj nam swój adres e-mail",

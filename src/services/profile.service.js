@@ -11,9 +11,9 @@ const instance = axios.create({
 });
 
 export const getProfileData = () => {
-  return instance.get("/i_am");
+  return instance.get("/i_am/");
 };
 
-export const setProfileDetails = (data) => {
+export const setProfileDetails = async (data) => {
   return instance.patch("/i_am/changing", data);
 };
