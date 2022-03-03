@@ -13,7 +13,7 @@ import UpdateForm from "./UpdateForm.vue";
 import AttendedData from "./AttendedData.vue";
 import { useProfile } from "../../stores/profile.store";
 const profileState = useProfile();
-await profileState.fillProfile();
+profileState.fillProfile();
 // import OrganizedData from "./OrganizedData";
 </script>
 
