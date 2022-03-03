@@ -1,7 +1,14 @@
 <template>
   <div>
+    <el-alert
+      :title="eventState.message.title"
+      :type="eventState.message.type"
+      effect="dark"
+      v-if="eventState.message.isShowed"
+      show-icon
+    ></el-alert>
     <el-table
-      :data="eventState.parsedDetails"
+      :data="data"
       cell-class-name="text-cell"
       style="width: 90%; margin: auto"
     >
@@ -22,7 +29,7 @@
       type="primary"
       @click="signToEvent"
       v-if="isLoggedIn"
-      :disabled="isComplete"
+      :disabled="!isComplete"
     >
       Zapisz się
     </el-button>
@@ -31,7 +38,6 @@
 <script setup>
 import { storeToRefs } from "pinia";
 import { CircleCheckFilled, CircleCloseFilled } from "@element-plus/icons-vue";
-import { attendEvent } from "../../services/event.service";
 import { useEvent } from "../../stores/event.store";
 import { useProfile } from "../../stores/profile.store";
 const profileState = useProfile();
@@ -40,10 +46,9 @@ const eventState = useEvent();
 const props = defineProps({
   id: String,
 });
-eventState.setCurrentId(props.id);
-
+const data = eventState.parseDetails(props.id);
 const signToEvent = () => {
-  attendEvent(props.id);
+  eventState.attendEvent(props.id);
 };
 </script>
 <script>

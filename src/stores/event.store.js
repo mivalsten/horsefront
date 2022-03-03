@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { SessionForm } from "../models/SessionForm";
-import { getEvent, getEvents } from "../services/event.service";
+import { getEvent, getEvents, attendEvent } from "../services/event.service";
 import { getMappedSessionData } from "../utils/sessions";
 import { eventLabels } from "../utils/labels";
 
@@ -10,7 +10,11 @@ export const useEvent = defineStore("session", {
     getSessionData: SessionForm,
     currentSessionId: "",
     sessionList: [],
-    message: "",
+    message: {
+      type: "info",
+      title: "",
+      isShowed: false,
+    },
     isFetched: false,
     isOneElementFetched: false,
   }),
@@ -31,7 +35,11 @@ export const useEvent = defineStore("session", {
         this.sessionList[id] = { ...data, id };
         this.isOneElementFetched = true;
       } catch (error) {
-        this.message = error.message;
+        this.message = {
+          type: "error",
+          title: error.message,
+          isShowed: true,
+        };
       }
     },
     async addNewSession(model) {
@@ -42,15 +50,64 @@ export const useEvent = defineStore("session", {
         isRegistrationOpen: false,
       };
     },
+    async attendEvent(id) {
+      try {
+        const data = await attendEvent(id);
+
+        switch (data.response.status) {
+          case 200:
+            this.message.title = "Jesteś na liście rezerwowej";
+            break;
+          case 201:
+            this.message.title = "Zapisałeś się na sesję. Miłej gry";
+        }
+        this.message.type = "success";
+        this.message.isShowed = true;
+        this.fetchSession(id);
+      } catch (error) {
+        console.log("ERROR", error);
+        switch (error.response.status) {
+          case 401:
+            this.message.title = "Musisz być zalogowany, żeby sie zapisać";
+            break;
+          case 420:
+            this.message.title =
+              "Nie możesz zapisać się na sesję, którą organizujesz";
+            break;
+          case 404:
+            this.message.title =
+              "Nie znaleziono sesji, na którą chcesz się zapisać";
+            break;
+          case 500:
+            this.message.title =
+              "Nie możemy cię zapisać na tę sesję. Błąd systemu";
+            break;
+          default:
+            this.message.title = "Wystąpił nieznany błąd:" + error;
+        }
+        this.message.type = "error";
+        this.message.isShowed = true;
+      }
+    },
     setCurrentId(id) {
       this.currentSessionId = id;
     },
-    async getSessionElement(id) {
-      const cached = Object.values(this.sessionList).find((element) => {
-        return element.id == id;
-      });
+    getSessionElement(id) {
+      const cached = this.sessionList[id];
+      if (!cached) this.fetchSession(id);
       this.isOneElementFetched = true;
-      return getMappedSessionData(cached);
+      return getMappedSessionData(cached || this.sessionList[id]);
+    },
+    parseDetails(id) {
+      const el = this.getSessionElement(id);
+      const keys = Object.keys(eventLabels);
+      const maped = keys.map((key) => {
+        return {
+          header: eventLabels[key],
+          value: el[key],
+        };
+      });
+      return maped;
     },
   },
   getters: {
@@ -60,18 +117,6 @@ export const useEvent = defineStore("session", {
       return Object.values(state.sessionList).map((element, index) => {
         element.id = ids[index];
         return getMappedSessionData(element);
-      });
-    },
-    parsedDetails: (state) => {
-      if (!state.isOneElementFetched)
-        state.fetchSession(state.currentSessionId);
-      const data = state.getSessionElement(state.currentSessionId);
-
-      return Object.keys(eventLabels).map((el) => {
-        return {
-          key: eventLabels[el],
-          value: data[el],
-        };
       });
     },
   },

@@ -1,8 +1,7 @@
 export const UserProfileForm = {
-  fullName: "", // required
-  emailAddress: "", // required
+  name: "", // required
+  email: "", // required
   discord: "", // required
-  displayName: "", // required
   organisation: "",
 };
 
