@@ -28,12 +28,9 @@
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Twój pseudonim" prop="displayName" required>
-        <el-input v-model="form.who" placeholder="np. Koń"></el-input>
-      </el-form-item>
       <el-form-item label="Adres e-mail" prop="emailAddress" required>
         <el-input
-          v-model="form.roll20"
+          v-model="form.email"
           placeholder="np. konline2022@example.com"
           type="email"
         ></el-input>

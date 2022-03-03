@@ -1,28 +1,16 @@
 import { defineStore } from "pinia";
-import { UserProfileForm } from "../models/UserProfile";
+import { UserProfile } from "../models/UserProfile";
 import { getProfileData, setProfileDetails } from "../services/profile.service";
+import { unattendEvent } from "../services/event.service";
 
 export const useProfile = defineStore("profile", {
   state: () => ({
-    profileData: UserProfileForm,
+    profile: UserProfile,
     isComplete: false,
-    isAdmin: false,
-    // TODO: Writing actions after logging in
     isLoggedIn: false,
-    attending: {},
-    organising: {},
-    messgaeStatus: "",
-    message: {
-      error: {
-        type: "error",
-        content:
-          "Ups, coś poszło nie tak, przeładuj aplikację i spróbuj jeszcze raz",
-      },
-      success: {
-        type: "success",
-        content: "Pomyślnie udało ci się zalogować",
-      },
-    },
+    isAdmin: false,
+    level: 0,
+    attending: [],
   }),
   actions: {
     editUserProfile(formModel) {
@@ -35,13 +23,39 @@ export const useProfile = defineStore("profile", {
         this.messgaeStatus = "error";
       }
     },
-    checkAuth() {
-      console.log(sessionStorage);
-      this.isLoggedIn = true;
+    async checkAuth() {
+      try {
+        await getProfileData();
+        this.isLoggedIn = true;
+      } catch (error) {
+        console.log(error);
+      }
     },
     async fillProfile() {
       const { data } = await getProfileData();
       this.profileData = data;
+      this.profileData.level = data.level;
+      this.isAdmin = data.level > 0;
+      this.attending = data.attending;
+    },
+    unattendEvent(id) {
+      try {
+        unattendEvent(id);
+        this.fillProfile();
+      } catch (error) {
+        console.log(error);
+      }
+    },
+  },
+  getters: {
+    getAttendingData: (state) => {
+      return state.attending.map((element) => {
+        return {
+          date: element.date,
+          time: element.time,
+          name: element.name,
+        };
+      });
     },
   },
 });

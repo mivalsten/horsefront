@@ -9,16 +9,19 @@
     >
       Zapisz się
     </el-button>
-    <el-button type="warning" v-if="isAdmin && isLoggedIn">Edytuj</el-button>
+    <el-button type="warning" v-if="isAdmin && isLoggedIn" @click="editSession">
+      Edytuj
+    </el-button>
   </footer>
 </template>
 
 <script setup>
 import { storeToRefs } from "pinia";
 import { useRouter } from "vue-router";
-import { attendEvent } from "../../services/event.service";
 import { useProfile } from "../../stores/profile.store";
+import { useEvent } from "../../stores/event.store";
 const profileState = useProfile();
+const eventState = useEvent();
 const { isComplete, isAdmin, isLoggedIn } = storeToRefs(profileState);
 const router = useRouter();
 const props = defineProps({
@@ -30,7 +33,11 @@ const showDetails = () => {
 };
 
 const signToEvent = () => {
-  attendEvent(props.id);
+  eventState.attendEvent(props.id);
+};
+
+const editSession = () => {
+  router.push({ name: "edit-session", params: { id: props.id } });
 };
 // import request from "../../utils/request";
 // export default {

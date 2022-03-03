@@ -1,8 +1,8 @@
 <template>
   <div class="profile">
-    <update-form :profile="profile" :nickname="nickname"></update-form>
+    <update-form></update-form>
     <h2>Sesje, w których uczestniczysz</h2>
-    <attended-data :nickname="nickname"></attended-data>
+    <attended-data></attended-data>
     <!-- <h2>Sesje, które prowadzisz</h2>
         <organized-data></organized-data> -->
   </div>
