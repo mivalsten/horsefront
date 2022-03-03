@@ -28,9 +28,9 @@
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Adres e-mail" prop="roll20" required>
+      <el-form-item label="Adres e-mail" prop="email" required>
         <el-input
-          v-model="form.roll20"
+          v-model="form.email"
           placeholder="np. konline2022@example.com"
           type="email"
         ></el-input>
@@ -51,16 +51,18 @@
 </template>
 
 <script lang="ts" setup>
+import { storeToRefs } from "pinia";
 import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
-import { UserProfileForm } from "../../models/UserProfile";
 import { useProfile } from "../../stores/profile.store";
 import { profileFormValidator } from "../../validators/profile-form-validator";
 
 type FormInstance = InstanceType<typeof ElForm>;
 
 const profileStore = useProfile();
-const form = reactive(UserProfileForm);
+profileStore.fillProfile();
+const { profileData } = storeToRefs(profileStore);
+const form = reactive(profileData.value);
 const formRef = ref<FormInstance>();
 const submitRef = ref(false);
 const rules = reactive(profileFormValidator);

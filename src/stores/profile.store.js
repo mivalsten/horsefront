@@ -5,7 +5,7 @@ import { unattendEvent } from "../services/event.service";
 
 export const useProfile = defineStore("profile", {
   state: () => ({
-    profile: UserProfile,
+    profileData: UserProfile,
     isComplete: false,
     isLoggedIn: false,
     isAdmin: false,
@@ -45,11 +45,15 @@ export const useProfile = defineStore("profile", {
       }
     },
     async fillProfile() {
-      const { data } = await getProfileData();
-      this.profileData = data;
-      this.profileData.level = data.level;
-      this.isAdmin = data.level > 0;
-      this.attending = data.attending;
+      try {
+        const { data } = await getProfileData();
+        this.profileData = data;
+        this.profileData.level = data.level;
+        this.isAdmin = data.level > 0;
+        this.attending = data.attending;
+      } catch (error) {
+        console.log(error);
+      }
     },
     unattendEvent(id) {
       try {

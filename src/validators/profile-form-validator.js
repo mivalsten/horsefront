@@ -37,7 +37,7 @@ export const profileFormValidator = {
       trigger: "blur",
     },
   ],
-  roll20: [
+  email: [
     {
       required: true,
       message: "Podaj nam swój adres e-mail",
