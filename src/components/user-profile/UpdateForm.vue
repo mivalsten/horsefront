@@ -28,9 +28,9 @@
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
-      <el-form-item label="Adres e-mail" prop="email" required>
+      <el-form-item label="Adres e-mail" prop="roll20" required>
         <el-input
-          v-model="form.email"
+          v-model="form.roll20"
           placeholder="np. konline2022@example.com"
           type="email"
         ></el-input>
