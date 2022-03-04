@@ -19,6 +19,7 @@ import { storeToRefs } from "pinia";
 import { useProfile } from "../stores/profile.store";
 
 const profileState = useProfile();
+profileState.fillProfile();
 const { isComplete, isLoggedIn } = storeToRefs(profileState);
 </script>
 

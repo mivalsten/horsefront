@@ -12,32 +12,32 @@
     <el-form
       label-width="auto"
       label-position="right"
-      :model="form"
+      :model="profileStore.profileData"
       :rules="rules"
       ref="formRef"
     >
       <el-form-item label="Nick do discorda" prop="discord" required>
         <el-input
-          v-model="form.discord"
+          v-model="profileStore.profileData.discord"
           placeholder="np. RandomKoń#2021"
         ></el-input>
       </el-form-item>
       <el-form-item label="Imię i nazwisko" prop="name" required>
         <el-input
-          v-model="form.name"
+          v-model="profileStore.profileData.name"
           placeholder="np. Joanna Końska"
         ></el-input>
       </el-form-item>
       <el-form-item label="Adres e-mail" prop="email" required>
         <el-input
-          v-model="form.email"
+          v-model="profileStore.profileData.email"
           placeholder="np. konline2022@example.com"
           type="email"
         ></el-input>
       </el-form-item>
       <el-form-item label="Organizacja" prop="organisation">
         <el-input
-          v-model="form.organisation"
+          v-model="profileStore.profileData.organisation"
           placeholder="np. Avangarda"
         ></el-input>
       </el-form-item>
@@ -51,7 +51,6 @@
 </template>
 
 <script lang="ts" setup>
-import { storeToRefs } from "pinia";
 import { reactive, ref } from "vue";
 import type { ElForm } from "element-plus";
 import { useProfile } from "../../stores/profile.store";
@@ -60,9 +59,6 @@ import { profileFormValidator } from "../../validators/profile-form-validator";
 type FormInstance = InstanceType<typeof ElForm>;
 
 const profileStore = useProfile();
-profileStore.fillProfile();
-const { profileData } = storeToRefs(profileStore);
-const form = reactive(profileData.value);
 const formRef = ref<FormInstance>();
 const submitRef = ref(false);
 const rules = reactive(profileFormValidator);

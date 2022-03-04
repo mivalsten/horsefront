@@ -8,12 +8,6 @@
     >
   </section>
 </template>
-<script setup>
-import { useProfile } from "../../stores/profile.store";
-
-const profile = useProfile();
-profile.checkAuth();
-</script>
 <script>
 import getEnv from "@/utils/env";
 

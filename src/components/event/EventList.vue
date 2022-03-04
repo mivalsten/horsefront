@@ -1,4 +1,11 @@
 <template>
+  <el-alert
+    :title="eventState.message.title"
+    :type="eventState.message.type"
+    v-if="eventState.message.isShowed"
+    :closable="false"
+  >
+  </el-alert>
   <div class="event-list">
     <event-container
       v-for="event in eventState.sortedList"
@@ -14,6 +21,8 @@
 <script setup>
 import { useEvent } from "../../stores/event.store";
 const eventState = useEvent();
+eventState.clearMessage();
+eventState.fetchSessions();
 // import EventContainer from "./EventContainer.vue";
 // import request from "../../utils/request";
 // import { parseDateAndTime } from "../../utils/date";

@@ -8,7 +8,7 @@
       show-icon
     ></el-alert>
     <el-table
-      :data="data"
+      :data="eventState.parseDetails(props.id)"
       cell-class-name="text-cell"
       style="width: 90%; margin: auto"
     >
@@ -46,7 +46,6 @@ const eventState = useEvent();
 const props = defineProps({
   id: String,
 });
-const data = eventState.parseDetails(props.id);
 const signToEvent = () => {
   eventState.attendEvent(props.id);
 };

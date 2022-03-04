@@ -15,30 +15,29 @@ export const useEvent = defineStore("session", {
       title: "",
       isShowed: false,
     },
-    isFetched: false,
-    isOneElementFetched: false,
   }),
   actions: {
     async fetchSessions() {
       try {
         const { data } = await getEvents();
         this.sessionList = { ...data };
-        this.isFetched = true;
-        this.isOneElementFetched = true;
-      } catch (error) {
-        this.message = error.message;
-      }
-    },
-    async fetchSession(id) {
-      try {
-        const { data } = getEvent(id);
-        this.sessionList[id] = { ...data, id };
-        this.isOneElementFetched = true;
       } catch (error) {
         this.message = {
           type: "error",
           title: error.message,
           isShowed: true,
+        };
+      }
+    },
+    async fetchSession(id) {
+      try {
+        const { data } = await getEvent(id);
+        this.sessionList[id] = { ...data, id };
+      } catch (error) {
+        this.message = {
+          type: "error",
+          title: error.message,
+          isShowed: false,
         };
       }
     },
@@ -52,9 +51,8 @@ export const useEvent = defineStore("session", {
     },
     async attendEvent(id) {
       try {
-        const data = await attendEvent(id);
-
-        switch (data.response.status) {
+        const response = await attendEvent(id);
+        switch (response.status) {
           case 200:
             this.message.title = "Jesteś na liście rezerwowej";
             break;
@@ -65,7 +63,6 @@ export const useEvent = defineStore("session", {
         this.message.isShowed = true;
         this.fetchSession(id);
       } catch (error) {
-        console.log("ERROR", error);
         switch (error.response.status) {
           case 401:
             this.message.title = "Musisz być zalogowany, żeby sie zapisać";
@@ -89,8 +86,12 @@ export const useEvent = defineStore("session", {
         this.message.isShowed = true;
       }
     },
-    setCurrentId(id) {
-      this.currentSessionId = id;
+    clearMessage() {
+      this.message = {
+        type: "info",
+        title: "",
+        isShowed: false,
+      };
     },
     getSessionElement(id) {
       const cached = this.sessionList[id];
@@ -112,12 +113,13 @@ export const useEvent = defineStore("session", {
   },
   getters: {
     sortedList: (state) => {
-      if (!state.isFetched) return state.fetchSessions();
       const ids = Object.keys(state.sessionList);
-      return Object.values(state.sessionList).map((element, index) => {
-        element.id = ids[index];
-        return getMappedSessionData(element);
-      });
+      return Object.values(state.sessionList)
+        .sort((a, b) => new Date(a.start) - new Date(b.start))
+        .map((element, index) => {
+          element.id = ids[index];
+          return getMappedSessionData(element);
+        });
     },
   },
 });

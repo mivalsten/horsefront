@@ -4,6 +4,7 @@ export const getMappedSessionData = (sessionForm) => {
     id: sessionForm.id || "",
     displayName: sessionForm.organizer || "",
     organization: sessionForm.organization || "",
+    ageRestrictions: sessionForm.age_restrictions || "",
     title: sessionForm.name || "",
     description: sessionForm.description || "",
     game: sessionForm.game || "",
@@ -11,22 +12,22 @@ export const getMappedSessionData = (sessionForm) => {
     triggers: sessionForm.triggers || "",
     safetyTools: sessionForm.safety_tools || "",
     minimalCount: sessionForm.min_attendees || "",
-    maximalCount: sessionForm.max_attendees || "",
+    maximalCount: sessionForm.capacity || "",
     isNewbieFriendly: sessionForm.newbie_friendly || false,
     isSettingFamiliarityRequired:
       sessionForm.setting_familiarity_required || false,
     isCameraRequired: sessionForm.camera_required || false,
     userPreparation: sessionForm.userPreparation || "",
-    date: sessionForm.when
+    date: sessionForm.start
       ? new Intl.DateTimeFormat("pl-PL", { dateStyle: "full" }).format(
-          new Date(sessionForm.when)
+          new Date(sessionForm.start)
         )
       : "",
-    time: sessionForm.when
+    time: sessionForm.start
       ? new Intl.DateTimeFormat("pl-PL", { timeStyle: "short" }).format(
-          new Date(sessionForm.when)
+          new Date(sessionForm.start)
         )
       : "",
-    freePlaces: sessionForm.capacity - sessionForm.attending_count || "",
+    freePlaces: sessionForm.capacity - sessionForm.attending_count || 0,
   };
 };

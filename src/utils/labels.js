@@ -9,6 +9,7 @@ export const eventLabels = {
   maximalCount: "Maksymalna liczba uczestników",
   description: "Opis sesji",
   displayName: "MG",
+  ageRestrictions: "Ograniczenia Wiekowe",
   isNewbieFriendly: "Przyjazne dla początkujących",
   isSettingFamiliarityRequired: "Wymagana znajomość settingu",
   isCameraRequired: "Wymagana kamera",

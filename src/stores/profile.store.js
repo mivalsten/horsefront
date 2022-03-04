@@ -1,18 +1,23 @@
 import { defineStore } from "pinia";
-import { UserProfile } from "../models/UserProfile";
-import { getProfileData, setProfileDetails } from "../services/profile.service";
+import { UserProfileForm } from "../models/UserProfile";
+import {
+  getProfileData,
+  setProfileDetails,
+  getAttendingData,
+} from "../services/profile.service";
 import { unattendEvent } from "../services/event.service";
+import { getMappedSessionData } from "../utils/sessions";
 
 export const useProfile = defineStore("profile", {
   state: () => ({
-    profileData: UserProfile,
+    profileData: UserProfileForm,
     isComplete: false,
     isLoggedIn: false,
     isAdmin: false,
     level: 0,
     attending: [],
     message: {
-      type: "",
+      type: "info",
       title: "",
       isShowing: false,
     },
@@ -36,41 +41,45 @@ export const useProfile = defineStore("profile", {
         };
       }
     },
-    async checkAuth() {
-      try {
-        await getProfileData();
-        this.isLoggedIn = true;
-      } catch (error) {
-        console.log(error);
-      }
-    },
     async fillProfile() {
       try {
         const { data } = await getProfileData();
+        this.isLoggedIn = true;
         this.profileData = data;
         this.profileData.level = data.level;
         this.isAdmin = data.level > 0;
-        this.attending = data.attending;
+        this.isComplete = !!data.discord && !!data.name && !!data.email;
       } catch (error) {
         console.log(error);
       }
     },
-    unattendEvent(id) {
+    async getAttendingData() {
       try {
-        unattendEvent(id);
-        this.fillProfile();
+        const { data } = await getAttendingData();
+        this.attending = data;
+      } catch (err) {
+        console.log(err);
+      }
+    },
+    async unattendEvent(id) {
+      try {
+        await unattendEvent(id);
+        await this.getAttendingData();
       } catch (error) {
         console.log(error);
       }
     },
   },
   getters: {
-    getAttendingData: (state) => {
+    getAttendingTable: (state) => {
       return state.attending.map((element) => {
+        const id = new URL(element.url).pathname.replace("/events/", "");
+        const parsed = getMappedSessionData(element);
         return {
-          date: element.date,
-          time: element.time,
-          name: element.name,
+          date: parsed.date,
+          time: parsed.time,
+          name: parsed.title,
+          id,
         };
       });
     },
