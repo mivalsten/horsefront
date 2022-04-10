@@ -9,18 +9,18 @@
   </section>
 </template>
 <script>
-import getEnv from "@/utils/env";
+//import getEnv from "@/utils/env";
 
 export default {
   methods: {
     redirectToGoogle() {
-      window.location.replace(getEnv("VUE_APP_API_PATH") + "/login/google");
+      window.location.replace(process.env.VUE_APP_API_PATH + "/login/google");
     },
     fbLogin() {
       window.FB.login(
         function (response) {
           if (response.authResponse) {
-            fetch(getEnv("VUE_APP_API_PATH") + "/login/facebook", {
+            fetch(process.env.VUE_APP_API_PATH + "/login/facebook", {
               headers: {
                 Accept: "application/json",
                 "Content-Type": "application/json",

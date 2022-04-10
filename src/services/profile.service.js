@@ -1,6 +1,6 @@
 import axios from "axios";
-import getEnv from "@/utils/env";
-export const API = getEnv("VUE_APP_API_PATH");
+//import getEnv from "@/utils/env";
+export const API = process.env.VUE_APP_API_PATH;
 // import MockAdapter from "axios-mock-adapter";
 
 const instance = axios.create({
